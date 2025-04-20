@@ -1,0 +1,22 @@
+.light, .dark {
+    .header-wrapper {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.light {
+    .header-wrapper {
+        background-color: var(--bs-white);
+    }
+}
+
+.dark {
+    .header-wrapper {
+        background-color: var(--bs-dark);
+    }
+}

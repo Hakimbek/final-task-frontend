@@ -1,0 +1,52 @@
+.light, .dark {
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .button-theme {
+        display: inline-flex;
+        gap: 5px;
+        padding: 6px 12px;
+        border: none;
+        background-color: transparent;
+    }
+
+    .button-theme:hover {
+        color: var(--bs-warning);
+    }
+
+    .input-theme {
+        padding: 8px;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .input-theme::placeholder {
+        color: var(--bs-gray-600);
+    }
+}
+
+.light {
+    background-color: var(--bs-gray-200);
+
+    .button-theme, .text-theme, .input-theme {
+        color: var(--bs-dark);
+    }
+
+    .input-theme, .template-theme, .select-theme, .tags-theme {
+        background-color: var(--bs-white);
+    }
+}
+
+.dark {
+    background-color: var(--bs-gray-800);
+
+    .button-theme, .text-theme, .input-theme {
+        color: var(--bs-white);
+    }
+
+    .input-theme, .template-theme, .select-theme, .tags-theme {
+        background-color: var(--bs-dark);
+    }
+}

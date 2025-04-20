@@ -1,0 +1,23 @@
+.light, .dark {
+    .search-input {
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
+
+    .search-input::placeholder {
+        color: var(--bs-gray-500);
+    }
+}
+
+.light {
+    .search-input {
+        color: var(--bs-dark);
+    }
+}
+
+.dark {
+    .search-input {
+        color: var(--bs-white);
+    }
+}
