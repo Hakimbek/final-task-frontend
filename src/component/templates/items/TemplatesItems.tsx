@@ -23,7 +23,7 @@ export const TemplatesItems = () => {
                         <i className="bi bi-journal-text"></i>
                     </div>
                     <div className="d-flex justify-content-between align-items-center template-theme w-100 p-4 rounded-end text-theme">
-                        <div>{title} by {user?.firstname} {user?.lastname}</div>
+                        <div>{title} | {user?.firstname} {user?.lastname}</div>
                     </div>
                 </div>
             ))}

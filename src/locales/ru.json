@@ -15,6 +15,7 @@
     "description": "Введите описание"
   },
   "search": "Поиск",
+  "template": "Шаблон",
   "templates": "Шаблоны",
   "createTemplate": "Создать Шаблон",
   "title": "Заголовок",

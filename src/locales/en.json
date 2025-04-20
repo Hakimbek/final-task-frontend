@@ -15,6 +15,7 @@
     "description": "Description is required"
   },
   "search": "Search",
+  "template": "Template",
   "templates": "Templates",
   "createTemplate": "Create Template",
   "title": "Title",

@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 
 const Template = () => {
     const userId = useAppSelector(selectUserId);
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
     const { templateId = '' } = useParams();
     const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
@@ -38,7 +38,7 @@ const Template = () => {
             .catch(result => toast(result.data.message));
     }
 
-    if (isTemplateLoading) return (
+    if (isTemplateLoading || isLoading) return (
         <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
             <Spinner color="warning" type="grow"/>
         </div>
@@ -46,7 +46,12 @@ const Template = () => {
 
     return (
         <div className="text-theme d-flex flex-column align-items-center p-4 gap-4">
-           <TemplateSettings templateUserId={template?.user?.id} />
+           <TemplateSettings
+               templateUserId={template?.user?.id}
+               firstname={template?.user?.firstname}
+               lastname={template?.user?.lastname}
+               isAdmin={user?.isAdmin}
+           />
             <form onSubmit={handleSubmit}>
                 <div style={{ width: 400 }} className="d-flex flex-column gap-4">
                     <TemplateHeader
@@ -68,7 +73,7 @@ const Template = () => {
                             />
                         ))
                     }
-                    {!isOwner && (
+                    {!isOwner && user && (
                         <SubmitButton
                             isDisabled={isResponseCreating}
                             isSubmitting={isResponseCreating}
