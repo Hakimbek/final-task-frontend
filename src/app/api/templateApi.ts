@@ -19,7 +19,7 @@ const templateApi = baseApi.injectEndpoints({
             providesTags: ['Template']
         }),
         getTemplateById: builder.query<TemplateDto, string>({
-            query: (id) => `template/${id}`,
+            query: (templateId) => `template/${templateId}`,
             providesTags: ['Template'],
         }),
         createTemplate: builder.mutation<TemplateDto, TemplateDto>({
@@ -39,8 +39,8 @@ const templateApi = baseApi.injectEndpoints({
             invalidatesTags: ['Template']
         }),
         deleteTemplateById: builder.mutation<{ message: string }, string>({
-            query: (id) => ({
-                url: `/template/${id}`,
+            query: (templateId) => ({
+                url: `/template/${templateId}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Template']
