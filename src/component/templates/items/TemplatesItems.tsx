@@ -17,13 +17,13 @@ export const TemplatesItems = () => {
 
     return (
         <>
-            {data?.map(({ title, id }) => (
+            {data?.map(({ title, id, user }) => (
                 <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/template/${id}`)}>
                     <div className="p-4 bg-warning rounded-start d-flex align-items-center">
                         <i className="bi bi-journal-text"></i>
                     </div>
                     <div className="d-flex justify-content-between align-items-center template-theme w-100 p-4 rounded-end text-theme">
-                        <div>{title}</div>
+                        <div>{title} by {user?.firstname} {user?.lastname}</div>
                     </div>
                 </div>
             ))}

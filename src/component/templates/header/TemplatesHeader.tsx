@@ -1,7 +1,7 @@
 import { CreateTemplateButton } from "../button/CreateTemplateButton.tsx";
 import { useAuth } from "../../../app/hook/useAuth.ts";
 import { useTranslation } from "react-i18next";
-import {Spinner} from "reactstrap";
+import { Spinner } from "reactstrap";
 
 export const TemplatesHeader = () => {
     const { user, isLoading} = useAuth();

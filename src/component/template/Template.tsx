@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TemplateHeader from "./header/TemplateHeader.tsx";
 import { TemplateSettings } from "./settings/TemplateSettings.tsx";
 import Question from "../question/Question.tsx";
@@ -10,23 +10,17 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../app/hook/useAuth.ts";
 import { useAppSelector } from "../../app/hook/hooks.ts";
 import { selectUserId } from "../../app/slice/authSlice.ts";
-import { SubmitButton } from "./button/SubmitButton.tsx";
-
-export interface Question {
-    id: string;
-    type: string;
-    question: string;
-    isVisible: boolean;
-}
+import { SubmitButton } from "../auth/button/SubmitButton.tsx";
+import { useTranslation } from "react-i18next";
 
 const Template = () => {
     const userId = useAppSelector(selectUserId);
     const { user } = useAuth();
     const { templateId = '' } = useParams();
     const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
-    const [createResponse, { isLoading }] = useCreateResponseMutation();
-    const navigate = useNavigate();
-    const isOwner = userId === template?.user.id;
+    const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
+    const isOwner = userId === template?.user?.id;
+    const { t } = useTranslation();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -40,11 +34,11 @@ const Template = () => {
 
         createResponse({ userId: String(user?.id), templateId, answers })
             .unwrap()
-            .then(() =>  navigate(`/home`))
-            .catch(() => toast("Something went wrong"));
+            .then(result =>  toast(result.message))
+            .catch(result => toast(result.data.message));
     }
 
-    if (isLoading || isTemplateLoading) return (
+    if (isTemplateLoading) return (
         <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
             <Spinner color="warning" type="grow"/>
         </div>
@@ -52,7 +46,7 @@ const Template = () => {
 
     return (
         <div className="text-theme d-flex flex-column align-items-center p-4 gap-4">
-           <TemplateSettings templateUserId={template?.user.id} />
+           <TemplateSettings templateUserId={template?.user?.id} />
             <form onSubmit={handleSubmit}>
                 <div style={{ width: 400 }} className="d-flex flex-column gap-4">
                     <TemplateHeader
@@ -61,7 +55,7 @@ const Template = () => {
                         topic={template?.topic}
                     />
                     {
-                        template?.questions?.map(({ id, title, description, isVisible, type, answer }) => (
+                        template?.questions?.map(({ id, title, description, isVisible, type, answer = '' }) => (
                             <Question
                                 key={id}
                                 id={id}
@@ -69,12 +63,18 @@ const Template = () => {
                                 description={description}
                                 isVisible={isVisible}
                                 type={type}
-                                templateUserId={template?.userId}
+                                templateUserId={template?.user?.id}
                                 answer={answer}
                             />
                         ))
                     }
-                    {!isOwner && <SubmitButton />}
+                    {!isOwner && (
+                        <SubmitButton
+                            isDisabled={isResponseCreating}
+                            isSubmitting={isResponseCreating}
+                            text={t("submit")}
+                        />
+                    )}
                 </div>
             </form>
         </div>
