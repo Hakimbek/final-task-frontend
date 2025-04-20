@@ -58,7 +58,7 @@ const Template = () => {
                         template?.questions?.map(({ id, title, description, isVisible, type, answer = '' }) => (
                             <Question
                                 key={id}
-                                id={id}
+                                id={id || ''}
                                 title={title}
                                 description={description}
                                 isVisible={isVisible}
