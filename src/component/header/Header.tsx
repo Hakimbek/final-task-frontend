@@ -14,7 +14,7 @@ export const Header = () => {
     const { isLoading, user } = useAuth();
 
     return (
-        <header className="border-bottom p-3 header-wrapper">
+        <header className="border-bottom p-3 header-wrapper z-1">
             <HomeButton />
             <div className="d-flex align-items-center gap-4">
                 <Search />

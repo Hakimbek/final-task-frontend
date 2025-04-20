@@ -1,52 +1,43 @@
 import { baseApi } from "./baseApi.ts";
 
 export interface QuestionDto {
-    id: string;
+    id?: string;
     title: string;
     description: string;
     isVisible: boolean;
     type: string;
-    templateId: string;
+    templateId?: string;
     answer?: string;
 }
 
 const questionApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        createQuestion: builder.mutation<
-            { id: string, title: string, description: string, isVisible: boolean, type: string, templateId: string },
-            { title: string, description: string, isVisible: boolean, type: string, templateId: string }
-        >({
-            query: (template) => ({
+        createQuestion: builder.mutation<QuestionDto, QuestionDto>({
+            query: (question) => ({
                 url: '/question',
                 method: 'POST',
-                body: template
+                body: question
             }),
             invalidatesTags: ['Template']
         }),
-        getQuestionById: builder.query<
-            { id: string, title: string, description: string, isVisible: boolean, type: string, templateId: string },
-            string
-        >({
-            query: (id) => `question/${id}`,
-            providesTags: ['Question']
+        getQuestionById: builder.query<QuestionDto, string>({
+            query: (questionId) => `question/${questionId}`,
+            providesTags: ['Template']
         }),
         deleteQuestionById: builder.mutation<{ message: string }, string>({
-            query: (id) => ({
-                url: `/question/${id}`,
+            query: (questionId) => ({
+                url: `/question/${questionId}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: ['Question']
+            invalidatesTags: ['Template']
         }),
-        editQuestionById: builder.mutation<
-            { message: string },
-            { id: string; title: string, description: string, isVisible: boolean, type: string }
-        >({
+        editQuestionById: builder.mutation<{ message: string }, QuestionDto>({
             query: (question) => ({
                 url: `/question/${question.id}`,
                 method: 'PUT',
                 body: question
             }),
-            invalidatesTags: ['Question']
+            invalidatesTags: ['Template']
         })
     })
 })

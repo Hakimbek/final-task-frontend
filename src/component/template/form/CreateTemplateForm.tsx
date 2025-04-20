@@ -70,7 +70,7 @@ const CreateTemplateForm = () => {
                 />
                 {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
             </div>
-            <Select topic={values.topic} setTopic={setFieldValue} data={topics} label={t("topic")} />
+            <Select value={values.topic} fieldName="topic" setValue={setFieldValue} data={topics} label={t("topic")} />
             <Tags tags={values.tags} setTags={setFieldValue} />
             <SubmitButton
                 isDisabled={isSubmitting || !(isValid && dirty)}

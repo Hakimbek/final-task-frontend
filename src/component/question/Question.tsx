@@ -17,7 +17,7 @@ interface QuestionProps {
     answer: string;
 }
 
-const Question = ({
+export const Question = ({
     id,
     title,
     description,
@@ -47,5 +47,3 @@ const Question = ({
         </div>
     )
 }
-
-export default Question;

@@ -19,7 +19,12 @@ const EditTemplateForm = () => {
     const navigate = useNavigate();
 
     const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
-        initialValues: { title: data?.title || '', description: data?.description || '', topic: data?.topic || 'Test', tags: data?.tags || [] },
+        initialValues: {
+            title: data?.title || '',
+            description: data?.description || '',
+            topic: data?.topic || 'Test',
+            tags: data?.tags || []
+        },
         validationSchema: Yup.object({
             title: Yup.string().required(),
             description: Yup.string().required(),
@@ -70,7 +75,7 @@ const EditTemplateForm = () => {
                 />
                 {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
             </div>
-            <Select topic={values.topic} setTopic={setFieldValue} data={topics} label={t("topic")} />
+            <Select value={values.topic} fieldName="topic" setValue={setFieldValue} data={topics} label={t("topic")} />
             <Tags tags={values.tags} setTags={setFieldValue} />
             <SubmitButton
                 isDisabled={isSubmitting || !(isValid && dirty)}

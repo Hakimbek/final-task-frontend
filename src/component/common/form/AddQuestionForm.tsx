@@ -1,15 +1,13 @@
-import Form from "./Form.tsx";
-import Input from "../inputs/Input.tsx";
-import { useState } from "react";
-import Textarea from "../inputs/Textarea.tsx";
 import { useTranslation } from "react-i18next";
 import { Select } from "../inputs/Select.tsx";
-import Visibility from "../inputs/Visibility.tsx";
-import { Button, Spinner } from "reactstrap";
+import { Visibility } from "../inputs/Visibility.tsx";
+import { Label } from "reactstrap";
 import { useCreateQuestionMutation } from "../../../app/api/questionApi.ts";
-import * as React from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { SubmitButton } from "../../auth/button/SubmitButton.tsx";
 
 export const questionTypes = [
     { id: "Text", name: "Text" },
@@ -18,62 +16,64 @@ export const questionTypes = [
 ]
 
 const AddQuestionForm = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [type, setType] = useState('Text');
-    const [isVisible, setIsVisible] = useState(true);
     const { t } = useTranslation();
-    const [createQuestion, { isLoading }] = useCreateQuestionMutation();
+    const [createQuestion] = useCreateQuestionMutation();
     const navigate = useNavigate();
     const { templateId } = useParams();
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
-            .unwrap()
-            .then(result => {
-                navigate(`/template/${result.templateId}`)
-            })
-            .catch(() => toast("Something went wrong"));
-    }
+    const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
+        initialValues: { title: '', description: '', type: 'Text', isVisible: true },
+        validationSchema: Yup.object({
+            title: Yup.string().required(),
+            description: Yup.string().required(),
+        }),
+        onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
+            createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
+                .unwrap()
+                .then(() => navigate(`/template/${templateId}`))
+                .catch(result => toast(result.data.message))
+                .finally(() => setSubmitting(false));
+        }
+    });
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Input
-                label={t("title")}
-                placeholder={t("title")}
-                type="text"
-                value={title}
-                onChange={setTitle}
-                rules="^.+$"
-                error={"Title is required"}
-            />
-            <Textarea
-                label={t("description")}
-                placeholder={t("description")}
-                value={description}
-                onChange={setDescription}
-                rules="^.+$"
-                error={"Description is required"}
-            />
-            <Select topic={type} setTopic={setType} data={questionTypes} label="type" />
-            <Visibility isVisible={isVisible} setIsVisible={setIsVisible} />
-            <Button
-                disabled={title.length === 0 || description.length === 0 || isLoading}
-                color="warning"
-                className="mt-3 d-flex align-items-center gap-2 justify-content-center"
-            >
-                {t("add")}
-                <Spinner
-                    size="sm"
-                    color="black"
-                    type="grow"
-                    className={`position-absolute ${isLoading ? "visible" : "invisible"}`}
-                    style={{ margin: "0 0 0 80px" }}
+        <form
+            onSubmit={handleSubmit}
+            className="d-flex flex-column mx-auto mt-5 gap-3 text-theme"
+            style={{ width: "350px" }}
+        >
+            <div className="d-flex flex-column">
+                <Label>{t("title")}</Label>
+                <input
+                    className="input-theme"
+                    type="text"
+                    name="title"
+                    placeholder={t("title")}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.title}
                 />
-            </Button>
-        </Form>
+                {touched.title && errors.title && <div className="text-danger">{t("error.title")}</div>}
+            </div>
+            <div className="d-flex flex-column">
+                <Label>{t("description")}</Label>
+                <textarea
+                    className="input-theme"
+                    name="description"
+                    placeholder={t("description")}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.description}
+                />
+                {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
+            </div>
+            <Select value={values.type} fieldName="type" setValue={setFieldValue} data={questionTypes} label={t("type")} />
+            <Visibility isVisible={values.isVisible} setIsVisible={setFieldValue} />
+            <SubmitButton
+                isDisabled={isSubmitting || !(isValid && dirty)}
+                isSubmitting={isSubmitting}
+                text={t("add")}
+            />
+        </form>
     )
 }
 

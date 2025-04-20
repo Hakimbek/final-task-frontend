@@ -1,87 +1,90 @@
-import Form from "./Form.tsx";
 import { useEditQuestionByIdMutation, useGetQuestionByIdQuery } from "../../../app/api/questionApi.ts";
 import { useNavigate, useParams } from "react-router-dom";
-import WarningSpinnerAbsolute from "../spinner/WarningSpinnerAbsolute.tsx";
-import { useEffect, useState } from "react";
-import Input from "../inputs/Input.tsx";
-import Textarea from "../inputs/Textarea.tsx";
 import { Select } from "../inputs/Select.tsx";
-import Visibility from "../inputs/Visibility.tsx";
+import { Visibility } from "../inputs/Visibility.tsx";
 import { useTranslation } from "react-i18next";
 import { questionTypes } from "./AddQuestionForm.tsx";
-import { Button, Spinner } from "reactstrap";
-import * as React from "react";
+import { Label, Spinner } from "reactstrap";
 import { toast } from "react-toastify";
+import { SubmitButton } from "../../auth/button/SubmitButton.tsx";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const EditQuestionForm = () => {
     const { questionId = '', templateId = '' } = useParams();
-    const { data: question, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(questionId);
-    const [editQuestionById, { isLoading: isQuestionEditing }] = useEditQuestionByIdMutation();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [type, setType] = useState('Text');
-    const [isVisible, setIsVisible] = useState(true);
+    const { data, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(questionId);
+    const [editQuestionById] = useEditQuestionByIdMutation();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (question) {
-            setTitle(question.title);
-            setDescription(question.description);
-            setType(question.type);
-            setIsVisible(question.isVisible);
+    const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            title: data?.title || '',
+            description: data?.description || '',
+            type: data?.type || 'Text',
+            isVisible: data?.isVisible || true
+        },
+        validationSchema: Yup.object({
+            title: Yup.string().required(),
+            description: Yup.string().required(),
+        }),
+        onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
+            editQuestionById({ id: questionId, title, description, isVisible, type })
+                .unwrap()
+                .then(() => {
+                    navigate(`/template/${templateId}`)
+                })
+                .catch(result => toast(result.data.message))
+                .finally(() => setSubmitting(false));
         }
-    }, [isQuestionLoading])
+    });
 
-    const handleEdit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        editQuestionById({ id: questionId || '', title, description, isVisible, type })
-            .unwrap()
-            .then(() => {
-                navigate(`/template/${templateId}`)
-            })
-            .catch(() => toast("Something went wrong"));
-    }
-
-    if (isQuestionLoading) return <WarningSpinnerAbsolute />
+    if (isQuestionLoading) return (
+        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
+            <Spinner color="warning" type="grow"/>
+        </div>
+    )
 
     return (
-        <Form onSubmit={handleEdit}>
-            <Input
-                label={t("title")}
-                placeholder={t("title")}
-                type="text"
-                value={title}
-                onChange={setTitle}
-                rules="^.+$"
-                error={"Title is required"}
-            />
-            <Textarea
-                label={t("description")}
-                placeholder={t("description")}
-                value={description}
-                onChange={setDescription}
-                rules="^.+$"
-                error={"Description is required"}
-            />
-            <Select topic={type} setTopic={setType} data={questionTypes} label="type" />
-            <Visibility isVisible={isVisible} setIsVisible={setIsVisible} />
-            <Button
-                disabled={title.length === 0 || description.length === 0 || isQuestionEditing}
-                color="warning"
-                className="mt-4 d-flex align-items-center gap-2 justify-content-center"
-            >
-                {t("edit")}
-                <Spinner
-                    size="sm"
-                    color="black"
-                    type="grow"
-                    className={`position-absolute ${isQuestionEditing ? "visible" : "invisible"}`}
-                    style={{ margin: "0 0 0 80px" }}
+        <form
+            onSubmit={handleSubmit}
+            className="d-flex flex-column mx-auto mt-5 gap-3 text-theme"
+            style={{ width: "350px" }}
+        >
+            <div className="d-flex flex-column">
+                <Label>{t("title")}</Label>
+                <input
+                    className="input-theme"
+                    type="text"
+                    name="title"
+                    placeholder={t("title")}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.title}
                 />
-            </Button>
-        </Form>
+                {touched.title && errors.title && <div className="text-danger">{t("error.title")}</div>}
+            </div>
+            <div className="d-flex flex-column">
+                <Label>{t("description")}</Label>
+                <textarea
+                    className="input-theme"
+                    name="description"
+                    placeholder={t("description")}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.description}
+                />
+                {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
+            </div>
+            <Select value={values.type} fieldName="type" setValue={setFieldValue} data={questionTypes} label={t("type")} />
+            <Visibility isVisible={values.isVisible} setIsVisible={setFieldValue} />
+            <SubmitButton
+                isDisabled={isSubmitting || !(isValid && dirty)}
+                isSubmitting={isSubmitting}
+                text={t("edit")}
+            />
+        </form>
     )
 }
 

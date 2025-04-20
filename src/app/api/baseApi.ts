@@ -25,6 +25,6 @@ const baseQueryWithAuthHandling: BaseQueryFn = async (args, api, extraOptions) =
 export const baseApi = createApi({
     reducerPath: 'apiSlice',
     baseQuery: baseQueryWithAuthHandling,
-    tagTypes: ['Template', 'User', 'Question', 'Response'],
+    tagTypes: ['Template', 'User', 'Response'],
     endpoints: () => ({})
 })

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import TemplateHeader from "./header/TemplateHeader.tsx";
 import { TemplateSettings } from "./settings/TemplateSettings.tsx";
-import Question from "../question/Question.tsx";
+import { Question } from "../question/Question.tsx";
 import { useGetTemplateByIdQuery } from "../../app/api/templateApi.ts";
 import { Spinner } from "reactstrap";
 import * as React from "react";

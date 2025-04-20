@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 
 interface QuestionVisibilityProps {
     isVisible: boolean;
-    setIsVisible: (isVisible: boolean) => void;
+    setIsVisible: (fieldName: string, isVisible: boolean) => void;
 }
 
-const Visibility = ({ isVisible, setIsVisible }: QuestionVisibilityProps) => {
+export const Visibility = ({ isVisible, setIsVisible }: QuestionVisibilityProps) => {
     const { t } = useTranslation();
 
     return (
@@ -21,7 +21,7 @@ const Visibility = ({ isVisible, setIsVisible }: QuestionVisibilityProps) => {
                         id="on"
                         name="radioOptions"
                         checked={isVisible}
-                        onChange={() => setIsVisible(!isVisible)}
+                        onChange={() => setIsVisible("isVisible", !isVisible)}
                     />
                 </div>
                 <div className="d-flex gap-2">
@@ -32,12 +32,10 @@ const Visibility = ({ isVisible, setIsVisible }: QuestionVisibilityProps) => {
                         id="off"
                         name="radioOptions"
                         checked={!isVisible}
-                        onChange={() => setIsVisible(!isVisible)}
+                        onChange={() => setIsVisible("isVisible", !isVisible)}
                     />
                 </div>
             </div>
         </div>
     )
 }
-
-export default Visibility;

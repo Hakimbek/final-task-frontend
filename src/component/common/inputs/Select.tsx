@@ -2,17 +2,18 @@ import { useState } from "react";
 import { Label } from "reactstrap";
 
 interface SelectProps {
-    topic: string;
-    setTopic: (field: string, value: string) => void;
+    value: string;
+    fieldName: string;
+    setValue: (field: string, value: string) => void;
     data: { id: string, name: string }[] | undefined;
     label: string;
 }
 
-export const Select = ({ topic, setTopic, data, label }: SelectProps) => {
+export const Select = ({ value, fieldName, setValue, data, label }: SelectProps) => {
     const [visible, setVisible] = useState(false);
 
-    const handleSelect = (topic: string) => {
-        setTopic("topic", topic);
+    const handleSelect = (value: string) => {
+        setValue(fieldName, value);
         setVisible(false);
     }
 
@@ -23,7 +24,7 @@ export const Select = ({ topic, setTopic, data, label }: SelectProps) => {
                 className="text-theme rounded select-theme p-2 d-flex justify-content-between align-items-center"
                 onClick={() => setVisible(!visible)}
             >
-                <div>{topic}</div>
+                <div>{value}</div>
                 <div>
                     <i className={`bi ${visible ? 'bi-caret-up-fill' : 'bi-caret-down-fill'}`}></i>
                 </div>
