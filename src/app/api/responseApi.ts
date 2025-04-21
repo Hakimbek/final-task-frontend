@@ -3,7 +3,7 @@ import { TemplateDto } from "./templateApi.ts";
 import { UserDto } from "./userApi.ts";
 
 interface ResponseDto {
-    id: number;
+    id: string;
     user: UserDto;
     template: TemplateDto;
 }
@@ -31,11 +31,19 @@ export const responseApi = baseApi.injectEndpoints({
         getResponsesByTemplateId: builder.query<ResponseDto[], string>({
             query: (templateId) => `/response/${templateId}`,
             providesTags: ['Template']
+        }),
+        deleteResponseById: builder.mutation<{ message: string }, string>({
+            query: (responseId) => ({
+                url: `/response/${responseId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Template']
         })
     })
 })
 
 export const {
     useCreateResponseMutation,
-    useGetResponsesByTemplateIdQuery
+    useGetResponsesByTemplateIdQuery,
+    useDeleteResponseByIdMutation
 } = responseApi;

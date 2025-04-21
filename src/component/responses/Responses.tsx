@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useGetResponsesByTemplateIdQuery } from "../../app/api/responseApi.ts";
 import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
+import { DeleteResponseButton } from "./button/DeleteResponseButton.tsx";
+import { OpenResponseButton } from "./button/OpenResponseButton.tsx";
 
 export const Responses = () => {
     const { templateId = '' } = useParams();
@@ -17,10 +19,16 @@ export const Responses = () => {
     return (
         <div className="d-flex flex-column text-theme p-5 gap-4">
             <div className="fs-3 d-flex justify-content-start">{t("responses")}</div>
-            <div className="cursor-pointer template-theme p-4 rounded">
+            <div className="d-flex flex-column gap-2">
                 {
                     data?.map(response => (
-                        <div>{response.user.firstname} {response.user.lastname}</div>
+                        <div key={response.id} className="p-3 rounded d-flex justify-content-between align-items-center template-theme">
+                            <div>{response.user.firstname} {response.user.lastname}</div>
+                            <div>
+                                <OpenResponseButton templateId={templateId} userId={response.user.id} />
+                                <DeleteResponseButton responseId={response.id} />
+                            </div>
+                        </div>
                     ))
                 }
             </div>

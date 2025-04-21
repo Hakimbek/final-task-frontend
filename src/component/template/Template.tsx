@@ -8,16 +8,13 @@ import * as React from "react";
 import { useCreateResponseMutation } from "../../app/api/responseApi.ts";
 import { toast } from "react-toastify";
 import { useAuth } from "../../app/hook/useAuth.ts";
-import { useAppSelector } from "../../app/hook/hooks.ts";
-import { selectUserId } from "../../app/slice/authSlice.ts";
 import { SubmitButton } from "../auth/button/SubmitButton.tsx";
 import { useTranslation } from "react-i18next";
 
 const Template = () => {
-    const userId = useAppSelector(selectUserId);
     const { user, isLoading } = useAuth();
-    const { templateId = '' } = useParams();
-    const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
+    const { templateId = '', userId = '' } = useParams();
+    const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId, userId });
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
     const isOwner = userId === template?.user?.id;
     const { t } = useTranslation();
@@ -32,7 +29,7 @@ const Template = () => {
             answer: String(value),
         }))
 
-        createResponse({ userId: String(user?.id), templateId, answers })
+        createResponse({ userId: userId, templateId, answers })
             .unwrap()
             .then(result =>  toast(result.message))
             .catch(result => toast(result.data.message));

@@ -3,11 +3,13 @@ import { useGetTemplatesQuery } from "../../../app/api/templateApi.ts";
 import { useAppSelector } from "../../../app/hook/hooks.ts";
 import { selectSearch } from "../../../app/slice/searchSlice.ts";
 import { Spinner } from "reactstrap";
+import { selectUserId } from "../../../app/slice/authSlice.ts";
 
 export const TemplatesItems = () => {
     const search = useAppSelector(selectSearch);
     const navigate = useNavigate();
     const { data, isLoading } = useGetTemplatesQuery(search);
+    const userId = useAppSelector(selectUserId) || '';
 
     if (isLoading) return (
         <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
@@ -18,7 +20,7 @@ export const TemplatesItems = () => {
     return (
         <>
             {data?.map(({ title, id, user }) => (
-                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/template/${id}`)}>
+                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/template/${id}/${userId}`)}>
                     <div className="p-4 bg-warning rounded-start d-flex align-items-center">
                         <i className="bi bi-journal-text"></i>
                     </div>

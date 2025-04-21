@@ -18,8 +18,8 @@ const templateApi = baseApi.injectEndpoints({
             query: (search) => `template?search=${search}`,
             providesTags: ['Template']
         }),
-        getTemplateById: builder.query<TemplateDto, string>({
-            query: (templateId) => `template/${templateId}`,
+        getTemplateById: builder.query<TemplateDto, { templateId: string, userId: string }>({
+            query: ({ templateId, userId }) => `template/${templateId}?userId=${userId}`,
             providesTags: ['Template'],
         }),
         createTemplate: builder.mutation<TemplateDto, TemplateDto>({
