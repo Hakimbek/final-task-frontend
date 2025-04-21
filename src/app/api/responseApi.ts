@@ -1,4 +1,12 @@
 import { baseApi } from "./baseApi.ts";
+import { TemplateDto } from "./templateApi.ts";
+import { UserDto } from "./userApi.ts";
+
+interface ResponseDto {
+    id: number;
+    user: UserDto;
+    template: TemplateDto;
+}
 
 export const responseApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -19,8 +27,15 @@ export const responseApi = baseApi.injectEndpoints({
                 body: response
             }),
             invalidatesTags: ['Template']
+        }),
+        getResponsesByTemplateId: builder.query<ResponseDto[], string>({
+            query: (templateId) => `/response/${templateId}`,
+            providesTags: ['Template']
         })
     })
 })
 
-export const { useCreateResponseMutation } = responseApi;
+export const {
+    useCreateResponseMutation,
+    useGetResponsesByTemplateIdQuery
+} = responseApi;

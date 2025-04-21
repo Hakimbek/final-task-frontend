@@ -16,7 +16,7 @@ import Profile from "./component/profile/Profile.tsx";
 import { User } from "./component/profile/User.tsx";
 import { UserTemplates } from "./component/profile/UserTemplates.tsx";
 import { EditUserForm } from "./component/common/form/EditUserForm.tsx";
-import { Responses } from "./component/profile/Responses.tsx";
+import { Responses } from "./component/responses/Responses.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -42,9 +42,10 @@ function App() {
                 <Route index element={<Navigate to="user" replace />} />
                 <Route path="user" element={<User />} />
                 <Route path="templates" element={<UserTemplates />} />
-                <Route path="responses" element={<Responses />} />
+                {/*<Route path="responses" element={<Responses />} />*/}
             </Route>
             <Route path="/user/edit" element={<EditUserForm />} />
+            <Route path="/responses/:templateId" element={<Responses />} />
         </Routes>
         <ToastContainer theme={theme} />
     </>
