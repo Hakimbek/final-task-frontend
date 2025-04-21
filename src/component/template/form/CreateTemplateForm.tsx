@@ -1,14 +1,14 @@
 import { Label, Spinner } from "reactstrap";
-import { Select } from "../../common/inputs/Select.tsx";
-import { Tags } from "../../common/inputs/Tags.tsx";
+import { Select } from "../../inputs/Select.tsx";
+import { Tags } from "../../inputs/Tags.tsx";
 import { useGetAllTopicsQuery } from "../../../app/api/topicApi.ts";
 import { useCreateTemplateMutation } from "../../../app/api/templateApi.ts";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { SubmitButton } from "../../auth/button/SubmitButton.tsx";
+import { SubmitButton } from "../../button/SubmitButton.tsx";
+import { templateValidation } from "./validation.ts";
 
 const CreateTemplateForm = () => {
     const { data: topics, isLoading } = useGetAllTopicsQuery();
@@ -18,10 +18,7 @@ const CreateTemplateForm = () => {
 
     const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
         initialValues: { title: '', description: '', topic: 'Test', tags: []  },
-        validationSchema: Yup.object({
-            title: Yup.string().required(),
-            description: Yup.string().required(),
-        }),
+        validationSchema: templateValidation,
         onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
             createTemplate({ title, description, topic, tags })
                 .unwrap()

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLoginMutation } from "../../app/api/authApi.ts";
 import { useFormik } from "formik";
-import { SubmitButton } from "./button/SubmitButton.tsx";
+import { SubmitButton } from "../button/SubmitButton.tsx";
 import { Label } from "reactstrap";
 import { loginValidationSchema } from "./validation.ts";
 import { useAppDispatch } from "../../app/hook/hooks.ts";

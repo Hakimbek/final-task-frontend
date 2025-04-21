@@ -1,39 +1,47 @@
-import { useTranslation } from "react-i18next";
-import { Select } from "../inputs/Select.tsx";
-import { Visibility } from "../inputs/Visibility.tsx";
-import { Label } from "reactstrap";
-import { useCreateQuestionMutation } from "../../../app/api/questionApi.ts";
-import { toast } from "react-toastify";
+import { useEditQuestionByIdMutation, useGetQuestionByIdQuery } from "../../../app/api/questionApi.ts";
 import { useNavigate, useParams } from "react-router-dom";
+import { Select } from "../../inputs/Select.tsx";
+import { Visibility } from "../../inputs/Visibility.tsx";
+import { useTranslation } from "react-i18next";
+import { questionTypes } from "./questionTypes.ts";
+import { Label, Spinner } from "reactstrap";
+import { toast } from "react-toastify";
+import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { SubmitButton } from "../../auth/button/SubmitButton.tsx";
+import { questionValidation } from "./validation.ts";
 
-export const questionTypes = [
-    { id: "Text", name: "Text" },
-    { id: "Textarea", name: "Textarea" },
-    { id: "Number", name: "Number" },
-]
-
-const AddQuestionForm = () => {
+const EditQuestionForm = () => {
+    const { questionId = '', templateId = '' } = useParams();
+    const { data, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(questionId);
+    const [editQuestionById] = useEditQuestionByIdMutation();
     const { t } = useTranslation();
-    const [createQuestion] = useCreateQuestionMutation();
     const navigate = useNavigate();
-    const { templateId } = useParams();
+
     const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
-        initialValues: { title: '', description: '', type: 'Text', isVisible: true },
-        validationSchema: Yup.object({
-            title: Yup.string().required(),
-            description: Yup.string().required(),
-        }),
+        enableReinitialize: true,
+        initialValues: {
+            title: data?.title || '',
+            description: data?.description || '',
+            type: data?.type || 'Text',
+            isVisible: data?.isVisible || true
+        },
+        validationSchema: questionValidation,
         onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
-            createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
+            editQuestionById({ id: questionId, title, description, isVisible, type })
                 .unwrap()
-                .then(() => navigate(`/template/${templateId}`))
+                .then(() => {
+                    navigate(`/template/${templateId}`)
+                })
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }
     });
+
+    if (isQuestionLoading) return (
+        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
+            <Spinner color="warning" type="grow"/>
+        </div>
+    )
 
     return (
         <form
@@ -71,10 +79,10 @@ const AddQuestionForm = () => {
             <SubmitButton
                 isDisabled={isSubmitting || !(isValid && dirty)}
                 isSubmitting={isSubmitting}
-                text={t("add")}
+                text={t("edit")}
             />
         </form>
     )
 }
 
-export default AddQuestionForm;
+export default EditQuestionForm;

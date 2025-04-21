@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useSignupMutation } from "../../app/api/authApi.ts";
 import { useFormik } from "formik";
-import { SubmitButton } from "./button/SubmitButton.tsx";
+import { SubmitButton } from "../button/SubmitButton.tsx";
 import { signupValidationSchema } from "./validation.ts";
 import { Label } from "reactstrap";
 

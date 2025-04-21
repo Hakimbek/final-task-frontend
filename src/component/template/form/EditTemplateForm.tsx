@@ -2,17 +2,17 @@ import { useGetTemplateByIdQuery, useEditTemplateByIdMutation } from "../../../a
 import { useGetAllTopicsQuery } from "../../../app/api/topicApi.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { Label, Spinner } from "reactstrap";
-import { Select } from "../../common/inputs/Select.tsx";
-import { Tags } from "../../common/inputs/Tags.tsx";
+import { Select } from "../../inputs/Select.tsx";
+import { Tags } from "../../inputs/Tags.tsx";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { SubmitButton } from "../../auth/button/SubmitButton.tsx";
+import { SubmitButton } from "../../button/SubmitButton.tsx";
+import { templateValidation } from "./validation.ts";
 
 const EditTemplateForm = () => {
     const { templateId = '' } = useParams();
-    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
+    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId });
     const { data: topics, isLoading: isTopicsLoading } = useGetAllTopicsQuery();
     const [editTemplate] = useEditTemplateByIdMutation();
     const { t } = useTranslation();
@@ -25,10 +25,7 @@ const EditTemplateForm = () => {
             topic: data?.topic || 'Test',
             tags: data?.tags || []
         },
-        validationSchema: Yup.object({
-            title: Yup.string().required(),
-            description: Yup.string().required(),
-        }),
+        validationSchema: templateValidation,
         onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
             editTemplate({ id: templateId, title, description, topic, tags })
                 .unwrap()

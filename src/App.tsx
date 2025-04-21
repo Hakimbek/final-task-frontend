@@ -6,8 +6,8 @@ import { Header } from "./component/header/Header.tsx";
 import CreateTemplateForm from "./component/template/form/CreateTemplateForm.tsx";
 import Templates from "./component/templates/Templates.tsx";
 import EditTemplateForm from "./component/template/form/EditTemplateForm.tsx";
-import AddQuestionForm from "./component/common/form/AddQuestionForm.tsx";
-import EditQuestionForm from "./component/common/form/EditQuestionForm.tsx";
+import AddQuestionForm from "./component/question/form/AddQuestionForm.tsx";
+import EditQuestionForm from "./component/question/form/EditQuestionForm.tsx";
 import { Login } from "./component/auth/Login.tsx";
 import { Signup } from "./component/auth/Signup.tsx";
 import { store } from "./app/store/store.ts";
@@ -15,7 +15,7 @@ import { setAuth } from "./app/slice/authSlice.ts";
 import Profile from "./component/profile/Profile.tsx";
 import { User } from "./component/profile/User.tsx";
 import { UserTemplates } from "./component/profile/UserTemplates.tsx";
-import { EditUserForm } from "./component/common/form/EditUserForm.tsx";
+import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
 import { Responses } from "./component/responses/Responses.tsx";
 
 function App() {

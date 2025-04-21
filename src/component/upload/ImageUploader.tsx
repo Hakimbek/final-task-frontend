@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
-import { useLazyGetSignedUrlQuery } from "../../../app/api/uploadApi.ts";
-import { useUploadImageMutation } from "../../../app/api/userApi.ts";
-import { useAppSelector } from "../../../app/hook/hooks.ts";
-import { selectUserId } from "../../../app/slice/authSlice.ts";
-import {Button, Spinner} from "reactstrap";
+import { useLazyGetSignedUrlQuery } from "../../app/api/uploadApi.ts";
+import { useUploadImageMutation } from "../../app/api/userApi.ts";
+import { useAppSelector } from "../../app/hook/hooks.ts";
+import { selectUserId } from "../../app/slice/authSlice.ts";
+import { Button, Spinner } from "reactstrap";
 
 const ImageUploader = () => {
     const [file, setFile] = useState<File | null>(null);

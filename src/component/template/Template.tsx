@@ -8,7 +8,7 @@ import * as React from "react";
 import { useCreateResponseMutation } from "../../app/api/responseApi.ts";
 import { toast } from "react-toastify";
 import { useAuth } from "../../app/hook/useAuth.ts";
-import { SubmitButton } from "../auth/button/SubmitButton.tsx";
+import { SubmitButton } from "../button/SubmitButton.tsx";
 import { useTranslation } from "react-i18next";
 
 const Template = () => {
