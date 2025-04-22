@@ -5,7 +5,7 @@ import { Spinner } from "reactstrap";
 import { DeleteResponseButton } from "./button/DeleteResponseButton.tsx";
 import { OpenResponseButton } from "./button/OpenResponseButton.tsx";
 
-export const Responses = () => {
+export const TemplateResponses = () => {
     const { templateId = '' } = useParams();
     const { data, isLoading } = useGetResponsesByTemplateIdQuery(templateId);
     const { t } = useTranslation();

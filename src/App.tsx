@@ -13,10 +13,10 @@ import { Signup } from "./component/auth/Signup.tsx";
 import { store } from "./app/store/store.ts";
 import { setAuth } from "./app/slice/authSlice.ts";
 import Profile from "./component/profile/Profile.tsx";
-import { User } from "./component/profile/User.tsx";
+import { User } from "./component/profile/user/User.tsx";
 import { UserTemplates } from "./component/profile/UserTemplates.tsx";
 import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
-import { Responses } from "./component/responses/Responses.tsx";
+import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -35,6 +35,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/template/:templateId/:userId" element={<Template />} />
             <Route path="/template/create" element={<CreateTemplateForm />} />
+            <Route path="/template/:templateId/responses" element={<TemplateResponses />} />
             <Route path="/template/:templateId/edit" element={<EditTemplateForm />} />
             <Route path="/template/:templateId/question/create" element={<AddQuestionForm />} />
             <Route path="/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
@@ -42,10 +43,9 @@ function App() {
                 <Route index element={<Navigate to="user" replace />} />
                 <Route path="user" element={<User />} />
                 <Route path="templates" element={<UserTemplates />} />
-                {/*<Route path="responses" element={<Responses />} />*/}
+                {/*<Route path="responses" element={<TemplateResponses />} />*/}
             </Route>
             <Route path="/user/edit" element={<EditUserForm />} />
-            <Route path="/responses/:templateId" element={<Responses />} />
         </Routes>
         <ToastContainer theme={theme} />
     </>

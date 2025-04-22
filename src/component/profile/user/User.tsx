@@ -1,8 +1,8 @@
-import { useAuth } from "../../app/hook/useAuth.ts";
+import { useAuth } from "../../../app/hook/useAuth.ts";
 import { Button, Spinner } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import ImageUploader from "../upload/ImageUploader.tsx";
-import { QuestionWrapper } from "../question/wrapper/QuestionWrapper.tsx";
+import ImageUploader from "../../upload/ImageUploader.tsx";
+import { QuestionWrapper } from "../../question/wrapper/QuestionWrapper.tsx";
 import { useNavigate } from "react-router-dom";
 
 export const User = () => {

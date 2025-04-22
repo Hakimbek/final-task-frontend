@@ -11,7 +11,7 @@ export const ResponseButton = () => {
         <Button
             color="warning"
             className="rounded-pill"
-            onClick={() => navigate(`/responses/${templateId}`)}
+            onClick={() => navigate(`/template/${templateId}/responses`)}
         >
             {t("responses")}
         </Button>
