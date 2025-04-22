@@ -3,13 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const EditTemplateButton = () => {
     const navigate = useNavigate();
-    const { templateId = '' } = useParams();
+    const { templateId = '', userId = '' } = useParams();
 
     return (
         <Button
             color="warning"
             className="rounded-pill"
-            onClick={() => navigate(`/template/${templateId}/edit`)}
+            onClick={() => navigate(`/template/${templateId}/${userId}/edit`)}
         >
             <i className="bi bi-gear"></i>
         </Button>

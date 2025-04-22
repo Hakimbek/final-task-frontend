@@ -11,14 +11,15 @@ import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { templateValidation } from "./validation.ts";
 
 const EditTemplateForm = () => {
-    const { templateId = '' } = useParams();
-    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId });
+    const { templateId = '', userId = '' } = useParams();
+    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId, userId: '' });
     const { data: topics, isLoading: isTopicsLoading } = useGetAllTopicsQuery();
     const [editTemplate] = useEditTemplateByIdMutation();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
+        enableReinitialize: true,
         initialValues: {
             title: data?.title || '',
             description: data?.description || '',
@@ -29,7 +30,7 @@ const EditTemplateForm = () => {
         onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
             editTemplate({ id: templateId, title, description, topic, tags })
                 .unwrap()
-                .then(() => navigate(`/template/${templateId}`))
+                .then(() => navigate(`/template/${templateId}/${userId}`))
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }
