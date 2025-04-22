@@ -9,7 +9,7 @@ export const EditTemplateButton = () => {
         <Button
             color="warning"
             className="rounded-pill"
-            onClick={() => navigate(`/template/${templateId}/${userId}/edit`)}
+            onClick={() => navigate(`/user/${userId}/template/${templateId}/edit`)}
         >
             <i className="bi bi-gear"></i>
         </Button>

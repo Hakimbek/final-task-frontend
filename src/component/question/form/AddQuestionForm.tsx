@@ -14,14 +14,14 @@ const AddQuestionForm = () => {
     const { t } = useTranslation();
     const [createQuestion] = useCreateQuestionMutation();
     const navigate = useNavigate();
-    const { templateId } = useParams();
+    const { templateId, userId } = useParams();
     const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
         initialValues: { title: '', description: '', type: 'Text', isVisible: true },
         validationSchema: questionValidation,
         onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
             createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
                 .unwrap()
-                .then(() => navigate(`/template/${templateId}`))
+                .then(() => navigate(`/user/${userId}/template/${templateId}`))
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }

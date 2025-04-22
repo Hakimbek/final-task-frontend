@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { questionValidation } from "./validation.ts";
 
 const EditQuestionForm = () => {
-    const { questionId = '', templateId = '' } = useParams();
+    const { questionId = '', templateId = '', userId } = useParams();
     const { data, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(questionId);
     const [editQuestionById] = useEditQuestionByIdMutation();
     const { t } = useTranslation();
@@ -30,7 +30,7 @@ const EditQuestionForm = () => {
             editQuestionById({ id: questionId, title, description, isVisible, type })
                 .unwrap()
                 .then(() => {
-                    navigate(`/template/${templateId}`)
+                    navigate(`/user/${userId}/template/${templateId}`)
                 })
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));

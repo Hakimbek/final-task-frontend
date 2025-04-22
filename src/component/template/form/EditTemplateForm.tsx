@@ -30,7 +30,7 @@ const EditTemplateForm = () => {
         onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
             editTemplate({ id: templateId, title, description, topic, tags })
                 .unwrap()
-                .then(() => navigate(`/template/${templateId}/${userId}`))
+                .then(() => navigate(`/user/${userId}/template/${templateId}`))
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }

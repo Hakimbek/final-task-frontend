@@ -8,7 +8,7 @@ interface QuestionSettingsProps {
 
 export const QuestionSettings = ({ id }: QuestionSettingsProps) => {
     const navigate = useNavigate();
-    const { templateId = '' } = useParams();
+    const { templateId, userId } = useParams();
     const [deleteQuestion, { isLoading: isQuestionDeleting }] = useDeleteQuestionByIdMutation();
 
     const handleDelete = () => {
@@ -22,7 +22,7 @@ export const QuestionSettings = ({ id }: QuestionSettingsProps) => {
         <div className="question-settings px-2">
             <button
                 className="button-theme"
-                onClick={() => navigate(`/template/${templateId}/question/${id}/edit`)}
+                onClick={() => navigate(`/user/${userId}/template/${templateId}/question/${id}/edit`)}
             >
                 <i className="bi bi-gear"></i>
             </button>

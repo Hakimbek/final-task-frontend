@@ -20,7 +20,7 @@ export const TemplatesItems = () => {
     return (
         <>
             {data?.map(({ title, id, user }) => (
-                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/template/${id}/${userId}`)}>
+                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/user/${userId}/template/${id}`)}>
                     <div className="p-4 bg-warning rounded-start d-flex align-items-center">
                         <i className="bi bi-journal-text"></i>
                     </div>

@@ -4,7 +4,7 @@ import { Tags } from "../../inputs/Tags.tsx";
 import { useGetAllTopicsQuery } from "../../../app/api/topicApi.ts";
 import { useCreateTemplateMutation } from "../../../app/api/templateApi.ts";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { SubmitButton } from "../../button/SubmitButton.tsx";
@@ -15,6 +15,7 @@ const CreateTemplateForm = () => {
     const [createTemplate] = useCreateTemplateMutation();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { userId = '' } = useParams();
 
     const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
         initialValues: { title: '', description: '', topic: 'Test', tags: []  },
@@ -23,7 +24,7 @@ const CreateTemplateForm = () => {
             createTemplate({ title, description, topic, tags })
                 .unwrap()
                 .then(result => {
-                    navigate(`/template/${result.id}`)
+                    navigate(`/user/${userId}/template/${result.id}`)
                 })
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));

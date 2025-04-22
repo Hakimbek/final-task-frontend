@@ -33,12 +33,12 @@ function App() {
             <Route path="/home" element={<Templates />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/template/create" element={<CreateTemplateForm />} />
-            <Route path="/template/:templateId/:userId" element={<Template />} />
-            <Route path="/template/:templateId/:userId/edit" element={<EditTemplateForm />} />
             <Route path="/template/:templateId/responses" element={<TemplateResponses />} />
-            <Route path="/template/:templateId/question/create" element={<AddQuestionForm />} />
-            <Route path="/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
+            <Route path="/user/:userId/template/create" element={<CreateTemplateForm />} />
+            <Route path="/user/:userId/template/:templateId" element={<Template />} />
+            <Route path="/user/:userId/template/:templateId/edit" element={<EditTemplateForm />} />
+            <Route path="/user/:userId/template/:templateId/question/create" element={<AddQuestionForm />} />
+            <Route path="/user/:userId/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
             <Route path="/profile" element={<Profile />}>
                 <Route index element={<Navigate to="user" replace />} />
                 <Route path="user" element={<User />} />
