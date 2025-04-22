@@ -29,7 +29,11 @@ export const responseApi = baseApi.injectEndpoints({
             invalidatesTags: ['Template']
         }),
         getResponsesByTemplateId: builder.query<ResponseDto[], string>({
-            query: (templateId) => `/response/${templateId}`,
+            query: (templateId) => `/response/template/${templateId}`,
+            providesTags: ['Template']
+        }),
+        getResponsesByUserId: builder.query<ResponseDto[], string>({
+            query: (userId) => `/response/user/${userId}`,
             providesTags: ['Template']
         }),
         deleteResponseById: builder.mutation<{ message: string }, string>({
@@ -45,5 +49,6 @@ export const responseApi = baseApi.injectEndpoints({
 export const {
     useCreateResponseMutation,
     useGetResponsesByTemplateIdQuery,
-    useDeleteResponseByIdMutation
+    useDeleteResponseByIdMutation,
+    useGetResponsesByUserIdQuery
 } = responseApi;

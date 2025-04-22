@@ -14,9 +14,10 @@ import { store } from "./app/store/store.ts";
 import { setAuth } from "./app/slice/authSlice.ts";
 import Profile from "./component/profile/Profile.tsx";
 import { User } from "./component/profile/user/User.tsx";
-import { UserTemplates } from "./component/profile/UserTemplates.tsx";
+import { UserTemplates } from "./component/profile/user/template/UserTemplates.tsx";
 import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
 import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
+import { UserResponses } from "./component/responses/UserResponses.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -43,7 +44,7 @@ function App() {
                 <Route index element={<Navigate to="user" replace />} />
                 <Route path="user" element={<User />} />
                 <Route path="templates" element={<UserTemplates />} />
-                {/*<Route path="responses" element={<TemplateResponses />} />*/}
+                <Route path="responses" element={<UserResponses />} />
             </Route>
             <Route path="/user/edit" element={<EditUserForm />} />
         </Routes>

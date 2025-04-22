@@ -1,4 +1,5 @@
 import { baseApi } from "./baseApi.ts";
+import { TemplateDto } from "./templateApi.ts";
 
 export interface UserDto {
     id: string;
@@ -7,6 +8,7 @@ export interface UserDto {
     email: string;
     isAdmin: boolean;
     image: string;
+    templates: TemplateDto[];
 }
 
 const userApi = baseApi.injectEndpoints({
