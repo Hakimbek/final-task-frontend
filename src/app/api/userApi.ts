@@ -15,7 +15,7 @@ const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getUserById: builder.query<UserDto, string>({
             query: (id) => `user/${id}`,
-            providesTags: ['User']
+            providesTags: ['User', 'Template']
         }),
         uploadImage: builder.mutation<void, { url: string, id: string }>({
             query: ({ url, id }) => ({

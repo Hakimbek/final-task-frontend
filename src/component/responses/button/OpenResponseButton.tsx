@@ -11,7 +11,7 @@ export const OpenResponseButton = ({ templateId, userId }: OpenResponseButtonPro
     return (
         <button
             className="button-theme"
-            onClick={() => navigate(`/template/${templateId}/${userId}`)}
+            onClick={() => navigate(`/user/${userId}/template/${templateId}`)}
         >
             <i className="bi bi-eye"></i>
         </button>
