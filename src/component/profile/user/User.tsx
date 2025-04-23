@@ -17,37 +17,42 @@ export const User = () => {
     );
 
     return (
-        <div className="d-flex flex-column align-items-center mt-3 text-theme gap-4">
-            <div className="d-flex flex-column justify-content-center align-items-center gap-2">
-                {
-                    user?.image ? (
-                        <img src={user?.image} alt="User image" width={100} height={100} className="rounded-circle" />
-                    ) : (
-                        <div
-                            style={{width: "100px", height: "100px"}}
-                            className="rounded-circle template-theme d-flex justify-content-center align-items-center">
-                            <i className="bi bi-person"></i>
-                        </div>
-                    )
-                }
+        <div>
+            <div className="fs-4 d-flex justify-content-end px-5 align-items-center gap-2">
+                <div>
+                    <Button
+                        color="warning"
+                        onClick={() => navigate(`/user/edit`)}
+                    >
+                        <i className="bi bi-gear"></i>
+                    </Button>
+                </div>
                 <ImageUploader />
             </div>
-            <QuestionWrapper name={t("firstname")}>
-                <div style={{width: "300px"}}>{user?.firstname}</div>
-            </QuestionWrapper>
-            <QuestionWrapper name={t("lastname")}>
-                <div style={{width: "300px"}}>{user?.lastname}</div>
-            </QuestionWrapper>
-            <QuestionWrapper name={t("email")}>
-                <div style={{width: "300px"}}>{user?.email}</div>
-            </QuestionWrapper>
-            <Button
-                color="warning"
-                style={{width: "320px"}}
-                onClick={() => navigate(`/user/edit`)}
-            >
-                {t("edit")}
-            </Button>
+            <div className="d-flex flex-column align-items-center mt-3 text-theme gap-4">
+                <div className="d-flex flex-column justify-content-center align-items-center gap-2">
+                    {
+                        user?.image ? (
+                            <img src={user?.image} alt="User image" width={100} height={100} className="rounded-circle" />
+                        ) : (
+                            <div
+                                style={{width: "100px", height: "100px"}}
+                                className="rounded-circle template-theme d-flex justify-content-center align-items-center">
+                                <i className="bi bi-person"></i>
+                            </div>
+                        )
+                    }
+                </div>
+                <QuestionWrapper name={t("firstname")}>
+                    <div style={{width: "300px"}}>{user?.firstname}</div>
+                </QuestionWrapper>
+                <QuestionWrapper name={t("lastname")}>
+                    <div style={{width: "300px"}}>{user?.lastname}</div>
+                </QuestionWrapper>
+                <QuestionWrapper name={t("email")}>
+                    <div style={{width: "300px"}}>{user?.email}</div>
+                </QuestionWrapper>
+            </div>
         </div>
     )
 }

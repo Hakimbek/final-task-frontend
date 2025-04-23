@@ -52,11 +52,11 @@ const ImageUploader = () => {
                 loading ? (
                     <Spinner color="warning" size="sm" type="grow" />
                 ) : file ? (
-                    <Button onClick={handleUpload} color="warning" size="sm">
+                    <Button onClick={handleUpload} color="warning">
                         <i className="bi bi-cloud-upload"></i>
                     </Button>
                 ) : (
-                    <Button color="warning" onClick={handleClick} size="sm">
+                    <Button color="warning" onClick={handleClick}>
                         <i className="bi bi-image"></i>
                     </Button>
                 )
