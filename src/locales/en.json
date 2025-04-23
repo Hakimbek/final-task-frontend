@@ -32,5 +32,13 @@
   "submit": "Submit",
   "user": "User",
   "profile": "Profile",
-  "responses": "Responses"
+  "responses": "Responses",
+  "admin": "Admin",
+  "delete": "Delete",
+  "activate": "Activate",
+  "disable": "Disable",
+  "makeAdmin": "Make Admin",
+  "makeUser": "Make User",
+  "active": "Active",
+  "disabled": "Disabled"
 }

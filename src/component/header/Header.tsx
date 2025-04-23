@@ -8,6 +8,7 @@ import { LogoutButton } from "./button/LogoutButton.tsx";
 import { ProfileButton } from "./button/ProfileButton.tsx";
 import { Spinner } from "reactstrap";
 import { useAuth } from "../../app/hook/useAuth.ts";
+import { AdminButton } from "./button/AdminButton.tsx";
 import "./Header.css";
 
 export const Header = () => {
@@ -20,6 +21,7 @@ export const Header = () => {
                 <Search />
                 <ColorSwitcher />
                 <LanguageSwitcher />
+                {user?.isAdmin && <AdminButton />}
                 {
                     isLoading
                         ? <Spinner size="sm" color="warning" type="grow" />

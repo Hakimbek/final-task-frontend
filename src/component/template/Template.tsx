@@ -16,7 +16,7 @@ const Template = () => {
     const { templateId = '', userId = '' } = useParams();
     const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId, userId });
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
-    const isOwner = userId === template?.user?.id;
+    const isOwner = user?.id === template?.user?.id;
     const { t } = useTranslation();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -70,7 +70,7 @@ const Template = () => {
                             />
                         ))
                     }
-                    {!isOwner && user && (
+                    {(user?.isAdmin || (!isOwner && user)) && (
                         <SubmitButton
                             isDisabled={isResponseCreating}
                             isSubmitting={isResponseCreating}

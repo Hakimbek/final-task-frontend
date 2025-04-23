@@ -4,13 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
 import { DeleteResponseButton } from "./button/DeleteResponseButton.tsx";
 import { OpenResponseButton } from "./button/OpenResponseButton.tsx";
+import { useAuth } from "../../app/hook/useAuth.ts";
 
 export const TemplateResponses = () => {
     const { templateId = '' } = useParams();
+    const { user, isLoading: isUserLoading } = useAuth();
     const { data, isLoading } = useGetResponsesByTemplateIdQuery(templateId);
     const { t } = useTranslation();
 
-    if (isLoading) return (
+    if (isLoading || isUserLoading) return (
         <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
             <Spinner color="warning" type="grow"/>
         </div>
@@ -26,7 +28,7 @@ export const TemplateResponses = () => {
                             <div>{response.user.firstname} {response.user.lastname}</div>
                             <div>
                                 <OpenResponseButton templateId={templateId} userId={response.user.id} />
-                                <DeleteResponseButton responseId={response.id} />
+                                { user?.isAdmin && <DeleteResponseButton responseId={response.id} /> }
                             </div>
                         </div>
                     ))

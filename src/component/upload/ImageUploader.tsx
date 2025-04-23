@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useLazyGetSignedUrlQuery } from "../../app/api/uploadApi.ts";
-import { useUploadImageMutation } from "../../app/api/userApi.ts";
+import { useUploadImageByIdMutation } from "../../app/api/userApi.ts";
 import { useAppSelector } from "../../app/hook/hooks.ts";
 import { selectUserId } from "../../app/slice/authSlice.ts";
 import { Button, Spinner } from "reactstrap";
@@ -8,7 +8,7 @@ import { Button, Spinner } from "reactstrap";
 const ImageUploader = () => {
     const [file, setFile] = useState<File | null>(null);
     const [getSignedUrl] = useLazyGetSignedUrlQuery();
-    const [uploadImage] = useUploadImageMutation();
+    const [uploadImage] = useUploadImageByIdMutation();
     const [loading, setLoading] = useState(false);
     const userId = useAppSelector(selectUserId);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +35,7 @@ const ImageUploader = () => {
             body: file,
         });
 
-        await uploadImage({ url: imageUrl, id: userId || '' });
+        await uploadImage({ url: imageUrl, userId: userId || '' });
         setLoading(false);
     };
 

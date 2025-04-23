@@ -1,7 +1,7 @@
 import { useAuth } from "../../../../app/hook/useAuth.ts";
 import { useTranslation } from "react-i18next";
 import { Label, Spinner } from "reactstrap";
-import { useEditUserMutation } from "../../../../app/api/userApi.ts";
+import { useEditUserByIdMutation } from "../../../../app/api/userApi.ts";
 import { useAppSelector } from "../../../../app/hook/hooks.ts";
 import { selectUserId } from "../../../../app/slice/authSlice.ts";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export const EditUserForm = () => {
     const userId = useAppSelector(selectUserId) || ''
     const { t } = useTranslation();
     const { isLoading, user } = useAuth();
-    const [editUser] = useEditUserMutation();
+    const [editUser] = useEditUserByIdMutation();
     const navigate = useNavigate();
 
     const { handleSubmit, handleChange, handleBlur, values, touched, isSubmitting, isValid, errors, dirty } = useFormik({
@@ -22,7 +22,7 @@ export const EditUserForm = () => {
         initialValues: { firstname: user?.firstname || '', lastname: user?.lastname || '' },
         validationSchema: userValidation,
         onSubmit: ({ firstname, lastname }, { setSubmitting }) => {
-            editUser({ firstname, lastname, id: userId })
+            editUser({ firstname, lastname, userId })
                 .unwrap()
                 .then(() => navigate("/profile/user"))
                 .catch(result => toast(result.data.message))
