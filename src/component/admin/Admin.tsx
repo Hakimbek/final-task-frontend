@@ -1,6 +1,6 @@
 import { useGetAllUsersQuery } from "../../app/api/userApi.ts";
 import { Spinner, Input } from "reactstrap";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Status } from "./status/Status.tsx";
 import { Settings } from "./settings/Settings.tsx";
 
