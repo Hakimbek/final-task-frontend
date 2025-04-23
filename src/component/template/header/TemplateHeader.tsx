@@ -1,5 +1,6 @@
 import { QuestionWrapper } from "../../question/wrapper/QuestionWrapper.tsx";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
 
 interface TemplateHeaderProps {
     title: string | undefined;
@@ -19,7 +20,7 @@ const TemplateHeader = ({ title, topic, description }: TemplateHeaderProps) => {
                 <div>{topic}</div>
             </QuestionWrapper>
             <QuestionWrapper name={t("description")}>
-                <div>{description}</div>
+                <ReactMarkdown>{description}</ReactMarkdown>
             </QuestionWrapper>
         </>
     )
