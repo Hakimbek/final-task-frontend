@@ -26,9 +26,11 @@ export const SortableQuestion = ({ question, templateUserId }: SortableQuestionP
         <div
             ref={setNodeRef}
             style={style}
-            {...attributes}
-            {...listeners}
+            className="position-relative"
         >
+            <div {...attributes} {...listeners} className="position-absolute" style={{ margin: "50px 0 0 -20px" }}>
+                <i className="bi bi-grip-vertical"></i>
+            </div>
             <Question
                 id={question.id || ''}
                 title={question.title}
