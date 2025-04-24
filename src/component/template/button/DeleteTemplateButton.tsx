@@ -18,6 +18,7 @@ export const DeleteTemplateButton = () => {
 
     return (
         <Button
+            type="button"
             disabled={isTemplateDeleting}
             color="warning"
             className="rounded-pill"

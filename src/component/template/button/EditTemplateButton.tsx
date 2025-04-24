@@ -7,6 +7,7 @@ export const EditTemplateButton = () => {
 
     return (
         <Button
+            type="button"
             color="warning"
             className="rounded-pill"
             onClick={() => navigate(`/user/${userId}/template/${templateId}/edit`)}

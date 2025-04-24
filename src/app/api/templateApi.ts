@@ -1,6 +1,5 @@
 import { baseApi } from "./baseApi.ts";
 import { UserDto } from "./userApi.ts";
-import { QuestionDto } from "./questionApi.ts";
 
 export interface TemplateDto {
     id?: string;
@@ -8,7 +7,16 @@ export interface TemplateDto {
     description: string;
     topic: string;
     user?: UserDto;
-    questions?: QuestionDto[];
+    questions?: {
+        id: string;
+        title: string;
+        description: string;
+        isVisible: boolean;
+        type: string;
+        templateId: string;
+        answer: string;
+        order: number;
+    }[];
     tags: string[];
 }
 

@@ -8,6 +8,7 @@ export interface QuestionDto {
     type: string;
     templateId?: string;
     answer?: string;
+    order: number;
 }
 
 const questionApi = baseApi.injectEndpoints({
@@ -38,7 +39,15 @@ const questionApi = baseApi.injectEndpoints({
                 body: question
             }),
             invalidatesTags: ['Template']
-        })
+        }),
+        reorder: builder.mutation<{ message: string }, string[]>({
+            query: (questionIds) => ({
+                url: `/question/reorder`,
+                method: 'PATCH',
+                body: { questionIds }
+            }),
+            invalidatesTags: ['Template']
+        }),
     })
 })
 
@@ -46,5 +55,6 @@ export const {
     useCreateQuestionMutation,
     useDeleteQuestionByIdMutation,
     useGetQuestionByIdQuery,
-    useEditQuestionByIdMutation
+    useEditQuestionByIdMutation,
+    useReorderMutation
 } = questionApi;

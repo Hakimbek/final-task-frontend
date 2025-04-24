@@ -9,6 +9,7 @@ export const ResponseButton = () => {
 
     return (
         <Button
+            type="button"
             color="warning"
             className="rounded-pill"
             onClick={() => navigate(`/template/${templateId}/responses`)}

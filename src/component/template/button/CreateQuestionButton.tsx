@@ -7,6 +7,7 @@ export const CreateQuestionButton = () => {
 
     return (
         <Button
+            type="button"
             color="warning"
             className="rounded-pill"
             onClick={() => navigate(`/user/${userId}/template/${templateId}/question/create`)}

@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../app/hook/useAuth.ts";
 import { SubmitButton } from "../button/SubmitButton.tsx";
 import { useTranslation } from "react-i18next";
+import { SortableQuestionList } from "../drag/SortableQuestionList.tsx";
 
 const Template = () => {
     const { user, isLoading } = useAuth();
@@ -56,7 +57,12 @@ const Template = () => {
                         description={template?.description}
                         topic={template?.topic}
                     />
-                    {
+                    { isOwner ? (
+                        <SortableQuestionList
+                            initialQuestions={template?.questions || []}
+                            templateUserId={template?.user?.id || ''}
+                        />
+                    ) : (
                         template?.questions?.map(({ id, title, description, isVisible, type, answer = '' }) => (
                             <Question
                                 key={id}
@@ -69,7 +75,7 @@ const Template = () => {
                                 answer={answer}
                             />
                         ))
-                    }
+                    ) }
                     {(user?.isAdmin || (!isOwner && user)) && (
                         <SubmitButton
                             isDisabled={isResponseCreating}
