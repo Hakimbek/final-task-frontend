@@ -21,12 +21,17 @@ export const QuestionSettings = ({ id }: QuestionSettingsProps) => {
     return (
         <div className="question-settings px-2">
             <button
+                type="button"
                 className="button-theme"
                 onClick={() => navigate(`/user/${userId}/template/${templateId}/question/${id}/edit`)}
             >
                 <i className="bi bi-gear"></i>
             </button>
-            <button className="button-theme" onClick={handleDelete} disabled={isQuestionDeleting}>
+            <button
+                type="button"
+                className="button-theme"
+                onClick={handleDelete} disabled={isQuestionDeleting}
+            >
                 <i className="bi bi-trash3"></i>
             </button>
         </div>
