@@ -46,6 +46,13 @@ const userApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['User']
         }),
+        deleteUserById: builder.mutation<{ message: string }, string>({
+            query: (userId) => ({
+                url: `/user/${userId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['User']
+        }),
         activateUserByIds: builder.mutation<{ message: string }, string[]>({
             query: (userIds) => ({
                 url: `/user/activate`,
@@ -90,5 +97,6 @@ export const {
     useActivateUserByIdsMutation,
     useDeactivateUserByIdsMutation,
     useMakeAdminUserByIdsMutation,
-    useMakeUserUserByIdsMutation
+    useMakeUserUserByIdsMutation,
+    useDeleteUserByIdMutation
 } = userApi;
