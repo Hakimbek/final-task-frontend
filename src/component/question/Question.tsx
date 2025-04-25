@@ -1,4 +1,4 @@
-import { QuestionWrapper } from "./wrapper/QuestionWrapper.tsx";
+import { InfoWrapper } from "../wrapper/InfoWrapper.tsx";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../app/hook/useAuth.ts";
 import { QuestionSettings } from "./settings/QuestionSettings.tsx";
@@ -34,7 +34,7 @@ export const Question = ({
 
     return (
         <div className="question cursor-pointer">
-            <QuestionWrapper name={t("question")}>
+            <InfoWrapper name={t("question")}>
                 <div className="d-flex flex-column gap-2 cursor-pointer">
                     <div>{title}</div>
                     <div>{description}</div>
@@ -43,7 +43,7 @@ export const Question = ({
                     {type === "Number" && <Number answer={answer} questionId={id} />}
                 </div>
                 {(user?.isAdmin || isOwner) && <QuestionSettings id={id} />}
-            </QuestionWrapper>
+            </InfoWrapper>
         </div>
     )
 }

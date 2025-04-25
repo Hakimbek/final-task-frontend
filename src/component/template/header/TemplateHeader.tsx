@@ -1,4 +1,4 @@
-import { QuestionWrapper } from "../../question/wrapper/QuestionWrapper.tsx";
+import { InfoWrapper } from "../../wrapper/InfoWrapper.tsx";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
@@ -13,15 +13,15 @@ const TemplateHeader = ({ title, topic, description }: TemplateHeaderProps) => {
 
     return (
         <>
-            <QuestionWrapper name={t("title")}>
+            <InfoWrapper name={t("title")}>
                 <div className="fs-3">{title}</div>
-            </QuestionWrapper>
-            <QuestionWrapper name={t("topic")}>
+            </InfoWrapper>
+            <InfoWrapper name={t("topic")}>
                 <div>{topic}</div>
-            </QuestionWrapper>
-            <QuestionWrapper name={t("description")}>
+            </InfoWrapper>
+            <InfoWrapper name={t("description")}>
                 <ReactMarkdown>{description}</ReactMarkdown>
-            </QuestionWrapper>
+            </InfoWrapper>
         </>
     )
 }
