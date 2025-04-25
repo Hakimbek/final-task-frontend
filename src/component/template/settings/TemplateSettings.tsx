@@ -2,20 +2,16 @@ import { CreateQuestionButton } from "../button/CreateQuestionButton.tsx";
 import { EditTemplateButton } from "../button/EditTemplateButton.tsx";
 import { DeleteTemplateButton } from "../button/DeleteTemplateButton.tsx";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../../app/hook/hooks.ts";
-import { selectUserId } from "../../../app/slice/authSlice.ts";
 import { ResponseButton } from "../button/ResponseButton.tsx";
 
 interface TemplateSettingsProps {
-    templateUserId: string | undefined;
+    isOwner: boolean;
     firstname: string | undefined;
     lastname: string | undefined;
     isAdmin: boolean | undefined;
 }
 
-export const TemplateSettings = ({ templateUserId, firstname, lastname, isAdmin }: TemplateSettingsProps) => {
-    const userId = useAppSelector(selectUserId);
-    const isOwner = userId === templateUserId;
+export const TemplateSettings = ({ isOwner, firstname, lastname, isAdmin }: TemplateSettingsProps) => {
     const { t } = useTranslation();
 
     return (

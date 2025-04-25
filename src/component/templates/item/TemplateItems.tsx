@@ -3,20 +3,18 @@ import { useGetTemplatesQuery } from "../../../app/api/templateApi.ts";
 import { useAppSelector } from "../../../app/hook/hooks.ts";
 import { selectSearch } from "../../../app/slice/searchSlice.ts";
 import { Spinner } from "../../spinner/Spinner.tsx";
-import { selectUserId } from "../../../app/slice/authSlice.ts";
 
 export const TemplateItems = () => {
     const search = useAppSelector(selectSearch);
     const navigate = useNavigate();
     const { data, isLoading } = useGetTemplatesQuery(search);
-    const userId = useAppSelector(selectUserId) || '';
 
     if (isLoading) return <Spinner />;
 
     return (
         <>
             {data?.map(({ title, id, user }) => (
-                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/user/${userId}/template/${id}`)}>
+                <div key={id} className="d-flex cursor-pointer" onClick={() => navigate(`/template/${id}`)}>
                     <div className="p-4 bg-warning rounded-start d-flex align-items-center">
                         <i className="bi bi-journal-text"></i>
                     </div>

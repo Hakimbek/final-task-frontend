@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import useLocalStorageState from "use-local-storage-state";
-import Template from "./component/template/Template.tsx";
+import { Template } from "./component/template/Template.tsx";
 import { Header } from "./component/header/Header.tsx";
 import CreateTemplateForm from "./component/template/form/CreateTemplateForm.tsx";
 import { Templates } from "./component/templates/Templates.tsx";
@@ -35,12 +35,12 @@ function App() {
             <Route path="/home" element={<Templates />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/template/create" element={<CreateTemplateForm />} />
+            <Route path="/template/:templateId" element={<Template />} />
+            <Route path="/template/:templateId/edit" element={<EditTemplateForm />} />
             <Route path="/template/:templateId/responses" element={<TemplateResponses />} />
-            <Route path="/user/:userId/template/create" element={<CreateTemplateForm />} />
-            <Route path="/user/:userId/template/:templateId" element={<Template />} />
-            <Route path="/user/:userId/template/:templateId/edit" element={<EditTemplateForm />} />
-            <Route path="/user/:userId/template/:templateId/question/create" element={<AddQuestionForm />} />
-            <Route path="/user/:userId/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
+            <Route path="/template/:templateId/question/create" element={<AddQuestionForm />} />
+            <Route path="/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
             <Route path="/profile" element={<Profile />}>
                 <Route index element={<Navigate to="user" replace />} />
                 <Route path="user" element={<User />} />
