@@ -1,14 +1,14 @@
-import { HomeButton } from "./button/HomeButton.tsx";
+import { HomeButton } from "./buttons/HomeButton.tsx";
 import { Search } from "../search/Search.tsx";
 import { ColorSwitcher } from "./switcher/ColorSwitcher.tsx";
 import { LanguageSwitcher } from "./switcher/LanguageSwitcher.tsx";
-import { LoginButton } from "./button/LoginButton.tsx";
-import { SignupButton } from "./button/SignupButton.tsx";
-import { LogoutButton } from "./button/LogoutButton.tsx";
-import { ProfileButton } from "./button/ProfileButton.tsx";
+import { LoginButton } from "./buttons/LoginButton.tsx";
+import { SignupButton } from "./buttons/SignupButton.tsx";
+import { LogoutButton } from "./buttons/LogoutButton.tsx";
+import { ProfileButton } from "./buttons/ProfileButton.tsx";
 import { Spinner } from "reactstrap";
 import { useAuth } from "../../app/hook/useAuth.ts";
-import { AdminButton } from "./button/AdminButton.tsx";
+import { AdminButton } from "./buttons/AdminButton.tsx";
 import "./Header.css";
 
 export const Header = () => {

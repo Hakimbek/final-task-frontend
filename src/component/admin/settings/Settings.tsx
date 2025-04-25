@@ -1,8 +1,8 @@
-import { MakeAdminButton } from "../button/MakeAdminButton.tsx";
-import { MakeUserButton } from "../button/MakeUserButton.tsx";
-import { ActivateUsersButton } from "../button/ActivateUsersButton.tsx";
-import { DeactivateUsersButton } from "../button/DeactivateUsersButton.tsx";
-import { DeleteUsersButton } from "../button/DeleteUsersButton.tsx";
+import { MakeAdminButton } from "../buttons/MakeAdminButton.tsx";
+import { MakeUserButton } from "../buttons/MakeUserButton.tsx";
+import { ActivateUsersButton } from "../buttons/ActivateUsersButton.tsx";
+import { DeactivateUsersButton } from "../buttons/DeactivateUsersButton.tsx";
+import { DeleteUsersButton } from "../buttons/DeleteUsersButton.tsx";
 
 interface SettingsProps {
     usersId: string[];
