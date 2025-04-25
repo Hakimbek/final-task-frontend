@@ -9,7 +9,10 @@ export const SignupButton = () => {
     if (location.pathname.includes('signup')) return null;
 
     return (
-        <button className="button-theme" onClick={() => navigate('/signup')}>
+        <button
+            className="button-theme"
+            onClick={() => navigate('/signup')}
+        >
             {t("signup")}
         </button>
     );

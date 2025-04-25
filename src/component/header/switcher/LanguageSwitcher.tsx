@@ -7,7 +7,10 @@ export const LanguageSwitcher = () => {
         i18n.changeLanguage(i18n.language === "en" ? "ru" : "en");
 
     return (
-        <button onClick={toggleLanguage} className="button-theme">
+        <button
+            onClick={toggleLanguage}
+            className="button-theme"
+        >
             {i18n.language === "en" ? "English" : "Русский"}
             <i className="bi bi-translate"></i>
         </button>

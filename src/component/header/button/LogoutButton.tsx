@@ -15,7 +15,11 @@ export const LogoutButton = () => {
     }
 
     return (
-        <Button color="warning" onClick={handleLogout} size="sm">
+        <Button
+            color="warning"
+            onClick={handleLogout}
+            size="sm"
+        >
             {t("logout")}
         </Button>
     )

@@ -21,12 +21,12 @@ export const Header = () => {
                 <Search />
                 <ColorSwitcher />
                 <LanguageSwitcher />
-                {user?.isAdmin && <AdminButton />}
                 {
                     isLoading
                         ? <Spinner size="sm" color="warning" type="grow" />
                         : user ? (
                             <>
+                                {user?.isAdmin && <AdminButton />}
                                 <LogoutButton />
                                 <ProfileButton />
                             </>

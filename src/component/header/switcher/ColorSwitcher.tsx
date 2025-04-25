@@ -11,7 +11,10 @@ export const ColorSwitcher = () => {
     }, [theme]);
 
     return (
-        <button onClick={toggleTheme} className="button-theme">
+        <button
+            onClick={toggleTheme}
+            className="button-theme"
+        >
             <i className={`bi bi-${theme === "light" ? "sun" : "moon"}`}></i>
         </button>
     )

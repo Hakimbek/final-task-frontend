@@ -9,7 +9,10 @@ export const LoginButton = () => {
     if (location.pathname.includes('login')) return null;
 
     return (
-        <button className="button-theme" onClick={() => navigate('/login')}>
+        <button
+            className="button-theme"
+            onClick={() => navigate('/login')}
+        >
             {t("login")}
         </button>
     );
