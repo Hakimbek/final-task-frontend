@@ -19,7 +19,10 @@ export const Search = () => {
                 value={search}
                 onChange={(e) => dispatch(setSearch(e.target.value))}
             />
-            <button className="button-theme" onClick={() => navigate("/home")}>
+            <button
+                className="button-theme"
+                onClick={() => navigate("/home")}
+            >
                 <i className="bi bi-search"></i>
             </button>
         </div>
