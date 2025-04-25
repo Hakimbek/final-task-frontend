@@ -2,20 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useGetTemplatesQuery } from "../../../app/api/templateApi.ts";
 import { useAppSelector } from "../../../app/hook/hooks.ts";
 import { selectSearch } from "../../../app/slice/searchSlice.ts";
-import { Spinner } from "reactstrap";
+import { Spinner } from "../../spinner/Spinner.tsx";
 import { selectUserId } from "../../../app/slice/authSlice.ts";
 
-export const TemplatesItems = () => {
+export const TemplateItems = () => {
     const search = useAppSelector(selectSearch);
     const navigate = useNavigate();
     const { data, isLoading } = useGetTemplatesQuery(search);
     const userId = useAppSelector(selectUserId) || '';
 
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <>

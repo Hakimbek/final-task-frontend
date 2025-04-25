@@ -1,13 +1,11 @@
 import { TemplatesHeader } from "./header/TemplatesHeader.tsx";
-import { TemplatesItems } from "./items/TemplatesItems.tsx";
+import { TemplateItems } from "./item/TemplateItems.tsx";
 
-const Templates = () => {
+export const Templates = () => {
     return (
         <div className="p-5 d-flex flex-column gap-4">
             <TemplatesHeader />
-            <TemplatesItems />
+            <TemplateItems />
         </div>
     )
 }
-
-export default Templates;

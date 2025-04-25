@@ -10,7 +10,10 @@ export const CreateTemplateButton = () => {
     const userId = useAppSelector(selectUserId);
 
     return (
-        <Button color="warning" onClick={() => navigate(`/user/${userId}/template/create`)}>
+        <Button
+            color="warning"
+            onClick={() => navigate(`/user/${userId}/template/create`)}
+        >
             {t("createTemplate")}
         </Button>
     )

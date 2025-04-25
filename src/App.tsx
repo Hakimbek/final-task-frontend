@@ -4,7 +4,7 @@ import useLocalStorageState from "use-local-storage-state";
 import Template from "./component/template/Template.tsx";
 import { Header } from "./component/header/Header.tsx";
 import CreateTemplateForm from "./component/template/form/CreateTemplateForm.tsx";
-import Templates from "./component/templates/Templates.tsx";
+import { Templates } from "./component/templates/Templates.tsx";
 import EditTemplateForm from "./component/template/form/EditTemplateForm.tsx";
 import AddQuestionForm from "./component/question/form/AddQuestionForm.tsx";
 import EditQuestionForm from "./component/question/form/EditQuestionForm.tsx";
