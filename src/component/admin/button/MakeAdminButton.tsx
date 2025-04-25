@@ -4,12 +4,11 @@ import { useMakeAdminUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface MakeAdminButtonProps {
-    isDisabled: boolean;
     userIds: string[];
     setUsers: (users: string[]) => void;
 }
 
-export const MakeAdminButton = ({ isDisabled, userIds, setUsers }: MakeAdminButtonProps) => {
+export const MakeAdminButton = ({ userIds, setUsers }: MakeAdminButtonProps) => {
     const { t } = useTranslation();
     const [makeAdminUserByIds, { isLoading }] = useMakeAdminUserByIdsMutation();
 
@@ -26,7 +25,7 @@ export const MakeAdminButton = ({ isDisabled, userIds, setUsers }: MakeAdminButt
     return (
         <Button
             onClick={handleClick}
-            disabled={isDisabled || isLoading}
+            disabled={userIds.length === 0 || isLoading}
             color="warning"
         >
             {t("makeAdmin")}

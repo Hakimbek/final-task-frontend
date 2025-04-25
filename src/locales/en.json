@@ -6,6 +6,8 @@
   "firstname": "Firstname",
   "lastname": "Lastname",
   "email": "Email",
+  "status": "Status",
+  "role": "Role",
   "error": {
     "password": "Password is required",
     "firstname": "Firstname is required",

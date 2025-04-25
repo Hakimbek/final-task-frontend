@@ -4,12 +4,11 @@ import { useDeactivateUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface DeactivateUsersButtonProps {
-    isDisabled: boolean;
     userIds: string[];
     setUsers: (users: string[]) => void;
 }
 
-export const DeactivateUsersButton = ({ isDisabled, userIds, setUsers }: DeactivateUsersButtonProps) => {
+export const DeactivateUsersButton = ({ userIds, setUsers }: DeactivateUsersButtonProps) => {
     const { t } = useTranslation();
     const [deactivateUserByIds, { isLoading }] = useDeactivateUserByIdsMutation();
 
@@ -26,7 +25,7 @@ export const DeactivateUsersButton = ({ isDisabled, userIds, setUsers }: Deactiv
     return (
         <Button
             onClick={handleClick}
-            disabled={isDisabled || isLoading}
+            disabled={userIds.length === 0 || isLoading}
             color="warning"
         >
             {t("disable")}

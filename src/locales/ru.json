@@ -6,6 +6,8 @@
   "firstname": "Имя",
   "lastname": "Фамилия",
   "email": "Электронная почта",
+  "status": "Статус",
+  "role": "Роль",
   "error": {
     "password": "Введите пароль",
     "firstname": "Введите имя",

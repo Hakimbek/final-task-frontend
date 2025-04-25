@@ -1,46 +1,19 @@
 import { useGetAllUsersQuery } from "../../app/api/userApi.ts";
-import { Spinner, Input } from "reactstrap";
 import { useState } from "react";
-import { Status } from "./status/Status.tsx";
 import { Settings } from "./settings/Settings.tsx";
+import { Spinner } from "../spinner/Spinner.tsx";
+import { Table } from "./table/Table.tsx";
 
 export const Admin = () => {
-    const { data, isLoading } = useGetAllUsersQuery();
-    const [users, setUsers] = useState<string[]>([]);
-    const isDisabled = users.length === 0;
+    const { data = [], isLoading } = useGetAllUsersQuery();
+    const [selectedUsersId, setSelectedUsersId] = useState<string[]>([]);
 
-    const handleChange = (userId: string) => {
-        if (!users.includes(userId)) {
-            setUsers(prevState => [...prevState, userId]);
-        } else {
-            setUsers(prevState => prevState.filter(id => id !== userId));
-        }
-    }
-
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <div className="text-theme d-flex flex-column gap-2 p-5">
-            <Settings isDisabled={isDisabled} users={users} setUsers={setUsers} />
-            {
-                data?.map(user => (
-                    <div key={user?.id} className="rounded template-theme p-4 d-flex align-items-center gap-5">
-                        <Input
-                            type="checkbox"
-                            onChange={() => handleChange(user?.id)}
-                            checked={users.includes(user.id)}
-                        />
-                        <div>
-                            {user?.firstname} {user?.lastname} | {user?.email}
-                        </div>
-                        <Status isActive={user?.isActive} isAdmin={user?.isAdmin} />
-                    </div>
-                ))
-            }
+            <Settings usersId={selectedUsersId} setUsersId={setSelectedUsersId} />
+            <Table users={data} usersId={selectedUsersId} setUsersId={setSelectedUsersId} />
         </div>
     )
 }

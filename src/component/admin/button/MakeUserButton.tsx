@@ -4,12 +4,11 @@ import { useMakeUserUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface MakeUserButtonProps {
-    isDisabled: boolean;
     userIds: string[];
     setUsers: (users: string[]) => void;
 }
 
-export const MakeUserButton = ({ isDisabled, userIds, setUsers }: MakeUserButtonProps) => {
+export const MakeUserButton = ({ userIds, setUsers }: MakeUserButtonProps) => {
     const { t } = useTranslation();
     const [makeUserUserByIds, { isLoading }] = useMakeUserUserByIdsMutation();
 
@@ -26,7 +25,7 @@ export const MakeUserButton = ({ isDisabled, userIds, setUsers }: MakeUserButton
     return (
         <Button
             onClick={handleClick}
-            disabled={isDisabled || isLoading}
+            disabled={userIds.length === 0 || isLoading}
             color="warning"
         >
             {t("makeUser")}

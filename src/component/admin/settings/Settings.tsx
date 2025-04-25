@@ -5,19 +5,18 @@ import { DeactivateUsersButton } from "../button/DeactivateUsersButton.tsx";
 import { DeleteUsersButton } from "../button/DeleteUsersButton.tsx";
 
 interface SettingsProps {
-    isDisabled: boolean;
-    users: string[];
-    setUsers: (users: string[]) => void;
+    usersId: string[];
+    setUsersId: (users: string[]) => void;
 }
 
-export const Settings = ({ isDisabled, users, setUsers }: SettingsProps) => {
+export const Settings = ({ usersId, setUsersId }: SettingsProps) => {
     return (
         <div className="d-flex justify-content-end mb-3 gap-2">
-            <MakeAdminButton isDisabled={isDisabled} userIds={users} setUsers={setUsers} />
-            <MakeUserButton isDisabled={isDisabled} userIds={users} setUsers={setUsers} />
-            <ActivateUsersButton isDisabled={isDisabled} userIds={users} setUsers={setUsers} />
-            <DeactivateUsersButton isDisabled={isDisabled} userIds={users} setUsers={setUsers} />
-            <DeleteUsersButton isDisabled={isDisabled} userIds={users} setUsers={setUsers} />
+            <MakeAdminButton userIds={usersId} setUsers={setUsersId} />
+            <MakeUserButton userIds={usersId} setUsers={setUsersId} />
+            <ActivateUsersButton userIds={usersId} setUsers={setUsersId} />
+            <DeactivateUsersButton userIds={usersId} setUsers={setUsersId} />
+            <DeleteUsersButton userIds={usersId} setUsers={setUsersId} />
         </div>
     )
 }

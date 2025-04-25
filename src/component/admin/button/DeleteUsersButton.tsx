@@ -4,12 +4,11 @@ import { useDeleteUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface DeleteUsersProps {
-    isDisabled: boolean;
     userIds: string[];
     setUsers: (users: string[]) => void;
 }
 
-export const DeleteUsersButton = ({ isDisabled, userIds, setUsers }: DeleteUsersProps) => {
+export const DeleteUsersButton = ({ userIds, setUsers }: DeleteUsersProps) => {
     const { t } = useTranslation();
     const [deleteUserByIds, { isLoading }] = useDeleteUserByIdsMutation();
 
@@ -26,7 +25,7 @@ export const DeleteUsersButton = ({ isDisabled, userIds, setUsers }: DeleteUsers
     return (
         <Button
             onClick={handleDelete}
-            disabled={isDisabled || isLoading}
+            disabled={userIds.length === 0 || isLoading}
             color="warning"
         >
             {t("delete")}
