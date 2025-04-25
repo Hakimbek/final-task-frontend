@@ -14,7 +14,7 @@ import { store } from "./app/store/store.ts";
 import { setAuth } from "./app/slice/authSlice.ts";
 import Profile from "./component/profile/Profile.tsx";
 import { User } from "./component/profile/user/User.tsx";
-import { UserTemplates } from "./component/profile/user/template/UserTemplates.tsx";
+import { UserTemplates } from "./component/profile/template/UserTemplates.tsx";
 import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
 import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
 import { UserResponses } from "./component/responses/UserResponses.tsx";

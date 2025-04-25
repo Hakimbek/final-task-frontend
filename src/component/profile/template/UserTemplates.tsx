@@ -1,16 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../app/hook/useAuth.ts";
-import { Spinner } from "reactstrap";
+import { useAuth } from "../../../app/hook/useAuth.ts";
+import { Spinner } from "../../spinner/Spinner.tsx";
 
 export const UserTemplates = () => {
     const navigate = useNavigate();
     const { user, isLoading } = useAuth();
 
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <div className="px-5 py-3 d-flex flex-column gap-4">
