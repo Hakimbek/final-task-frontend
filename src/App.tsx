@@ -12,7 +12,7 @@ import { Login } from "./component/auth/Login.tsx";
 import { Signup } from "./component/auth/Signup.tsx";
 import { store } from "./app/store/store.ts";
 import { setAuth } from "./app/slice/authSlice.ts";
-import Profile from "./component/profile/Profile.tsx";
+import { Profile } from "./component/profile/Profile.tsx";
 import { User } from "./component/profile/user/User.tsx";
 import { UserTemplates } from "./component/profile/template/UserTemplates.tsx";
 import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";

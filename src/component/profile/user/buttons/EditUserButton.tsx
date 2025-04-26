@@ -8,7 +8,7 @@ export const EditUserButton = () => {
         <div>
             <Button
                 color="warning"
-                onClick={() => navigate(`/user/edit`)}
+                onClick={() => navigate("/user/edit")}
             >
                 <i className="bi bi-gear"></i>
             </Button>

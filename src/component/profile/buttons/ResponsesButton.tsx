@@ -9,9 +9,9 @@ export const ResponsesButton = () => {
 
     return (
         <Button
-            color={location.pathname.includes('responses') ? "warning" : ""}
+            color={location.pathname.includes("responses") ? "warning" : ""}
             onClick={() => navigate("responses")}
-            className={`border border-warning ${!location.pathname.includes('responses') && "text-theme"}`}
+            className={`border border-warning ${!location.pathname.includes("responses") && "text-theme"}`}
         >
             {t("responses")}
         </Button>

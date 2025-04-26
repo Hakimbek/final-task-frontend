@@ -9,9 +9,9 @@ export const TemplatesButton = () => {
 
     return (
         <Button
-            color={location.pathname.includes('templates') ? "warning" : ""}
+            color={location.pathname.includes("templates") ? "warning" : ""}
             onClick={() => navigate("templates")}
-            className={`border border-warning ${!location.pathname.includes('templates') && "text-theme"}`}
+            className={`border border-warning ${!location.pathname.includes("templates") && "text-theme"}`}
         >
             {t("templates")}
         </Button>

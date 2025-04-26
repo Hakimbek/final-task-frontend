@@ -1,6 +1,6 @@
 import { useAuth } from "../../../../app/hook/useAuth.ts";
 import { useTranslation } from "react-i18next";
-import { Label, Spinner } from "reactstrap";
+import { Label } from "reactstrap";
 import { useEditUserByIdMutation } from "../../../../app/api/userApi.ts";
 import { useAppSelector } from "../../../../app/hook/hooks.ts";
 import { selectUserId } from "../../../../app/slice/authSlice.ts";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { userValidation } from "./validation.ts";
 import { SubmitButton } from "../../../button/SubmitButton.tsx";
+import { Spinner } from "../../../spinner/Spinner.tsx";
 
 export const EditUserForm = () => {
     const userId = useAppSelector(selectUserId) || ''
@@ -30,11 +31,7 @@ export const EditUserForm = () => {
         }
     })
 
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <form

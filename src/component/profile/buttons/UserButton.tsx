@@ -9,9 +9,9 @@ export const UserButton = () => {
 
     return (
         <Button
-            color={location.pathname.includes('user') ? "warning" : ""}
+            color={location.pathname.includes("user") ? "warning" : ""}
             onClick={() => navigate("user")}
-            className={`border border-warning ${!location.pathname.includes('user') && "text-theme"}`}
+            className={`border border-warning ${!location.pathname.includes("user") && "text-theme"}`}
         >
             {t("user")}
         </Button>

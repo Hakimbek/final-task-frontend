@@ -4,7 +4,7 @@ import { TemplatesButton } from "./buttons/TemplatesButton.tsx";
 import { UserButton } from "./buttons/UserButton.tsx";
 import { ResponsesButton } from "./buttons/ResponsesButton.tsx";
 
-const Profile = () => {
+export const Profile = () => {
     const { t } = useTranslation();
 
     return (
@@ -21,5 +21,3 @@ const Profile = () => {
         </div>
     )
 }
-
-export default Profile;
