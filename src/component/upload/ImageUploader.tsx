@@ -43,7 +43,10 @@ export const ImageUploader = () => {
                 uploadImage({ url: imageUrl, userId: userId || '' });
             })
             .catch(() => toast(t("error.common")))
-            .finally(() => setLoading(false));
+            .finally(() => {
+                setFile(null);
+                setLoading(false);
+            });
     };
 
     return (
@@ -57,7 +60,9 @@ export const ImageUploader = () => {
             />
             {
                 loading ? (
-                    <Spinner color="warning" size="sm" type="grow" />
+                    <Button color="warning">
+                        <Spinner size="sm" type="grow" />
+                    </Button>
                 ) : file ? (
                     <Button onClick={handleUpload} color="warning">
                         <i className="bi bi-cloud-upload"></i>
