@@ -2,6 +2,7 @@ import { Button } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { useDeleteUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
+import { OverlaySpinner } from "../../spinner/OverlaySpinner.tsx";
 
 interface DeleteUsersProps {
     userIds: string[];
@@ -26,12 +27,15 @@ export const DeleteUsersButton = ({
     }
 
     return (
-        <Button
-            onClick={handleDelete}
-            disabled={userIds.length === 0 || isLoading}
-            color="warning"
-        >
-            {t("delete")}
-        </Button>
+        <>
+            <Button
+                onClick={handleDelete}
+                disabled={userIds.length === 0 || isLoading}
+                color="warning"
+            >
+                {t("delete")}
+            </Button>
+            {isLoading && <OverlaySpinner />}
+        </>
     )
 }

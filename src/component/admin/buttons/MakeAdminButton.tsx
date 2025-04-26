@@ -2,6 +2,7 @@ import { Button } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { useMakeAdminByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
+import { OverlaySpinner } from "../../spinner/OverlaySpinner.tsx";
 
 interface MakeAdminButtonProps {
     userIds: string[];
@@ -26,12 +27,15 @@ export const MakeAdminButton = ({
     }
 
     return (
-        <Button
-            onClick={handleClick}
-            disabled={userIds.length === 0 || isLoading}
-            color="warning"
-        >
-            {t("makeAdmin")}
-        </Button>
+        <>
+            <Button
+                onClick={handleClick}
+                disabled={userIds.length === 0 || isLoading}
+                color="warning"
+            >
+                {t("makeAdmin")}
+            </Button>
+            {isLoading && <OverlaySpinner />}
+        </>
     )
 }

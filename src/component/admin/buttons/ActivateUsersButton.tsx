@@ -2,6 +2,7 @@ import { Button } from "reactstrap";
 import { useTranslation } from "react-i18next";
 import { useActivateUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
+import { OverlaySpinner } from "../../spinner/OverlaySpinner.tsx";
 
 interface ActivateUsersButtonProps {
     userIds: string[];
@@ -26,12 +27,15 @@ export const ActivateUsersButton = ({
     }
 
     return (
-        <Button
-            onClick={handleClick}
-            disabled={userIds.length === 0 || isLoading}
-            color="warning"
-        >
-            {t("activate")}
-        </Button>
+        <>
+            <Button
+                onClick={handleClick}
+                disabled={userIds.length === 0 || isLoading}
+                color="warning"
+            >
+                {t("activate")}
+            </Button>
+            {isLoading && <OverlaySpinner />}
+        </>
     )
 }
