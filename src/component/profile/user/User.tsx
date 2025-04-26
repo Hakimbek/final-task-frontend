@@ -1,7 +1,7 @@
 import { useAuth } from "../../../app/hook/useAuth.ts";
 import { Spinner } from "../../spinner/Spinner.tsx";
 import { useTranslation } from "react-i18next";
-import ImageUploader from "../../upload/ImageUploader.tsx";
+import { ImageUploader } from "../../upload/ImageUploader.tsx";
 import { InfoWrapper } from "../../wrapper/InfoWrapper.tsx";
 import { EditUserButton } from "./buttons/EditUserButton.tsx";
 import { DeleteUserButton } from "./buttons/DeleteUserButton.tsx";

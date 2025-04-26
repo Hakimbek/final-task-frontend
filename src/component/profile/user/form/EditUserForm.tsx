@@ -26,7 +26,7 @@ export const EditUserForm = () => {
             editUser({ firstname, lastname, userId })
                 .unwrap()
                 .then(() => navigate("/profile/user"))
-                .catch(result => toast(result.data.message))
+                .catch(() => toast(t("error.common")))
                 .finally(() => setSubmitting(false));
         }
     })

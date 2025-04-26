@@ -1,17 +1,20 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 import { useLazyGetSignedUrlQuery } from "../../app/api/uploadApi.ts";
 import { useUploadImageByIdMutation } from "../../app/api/userApi.ts";
 import { useAppSelector } from "../../app/hook/hooks.ts";
 import { selectUserId } from "../../app/slice/authSlice.ts";
 import { Button, Spinner } from "reactstrap";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
-const ImageUploader = () => {
+export const ImageUploader = () => {
     const [file, setFile] = useState<File | null>(null);
     const [getSignedUrl] = useLazyGetSignedUrlQuery();
     const [uploadImage] = useUploadImageByIdMutation();
     const [loading, setLoading] = useState(false);
     const userId = useAppSelector(selectUserId);
     const inputRef = useRef<HTMLInputElement>(null);
+    const { t } = useTranslation();
 
     const handleClick = () => {
         inputRef.current?.click();
@@ -19,24 +22,28 @@ const ImageUploader = () => {
 
     const handleUpload = async () => {
         setLoading(true);
+
         if (!file) return;
 
         const { data } = await getSignedUrl({ fileName: file.name, fileType: file.type });
         const uploadUrl = data?.signedUrl;
         const fileKey = data?.key;
         const imageUrl = `https://final-task-images.s3.eu-north-1.amazonaws.com/${fileKey}`;
+
         if (!uploadUrl) return;
 
-        await fetch(uploadUrl, {
-            method: 'PUT',
+        fetch(uploadUrl, {
+            method: "PUT",
             headers: {
-                'Content-Type': file.type,
+                "Content-Type": file.type,
             },
             body: file,
-        });
-
-        await uploadImage({ url: imageUrl, userId: userId || '' });
-        setLoading(false);
+        })
+            .then(() => {
+                uploadImage({ url: imageUrl, userId: userId || '' });
+            })
+            .catch(() => toast(t("error.common")))
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -64,5 +71,3 @@ const ImageUploader = () => {
         </div>
     );
 };
-
-export default ImageUploader;
