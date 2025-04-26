@@ -6,19 +6,19 @@ const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         signup: builder.mutation<MessageDto, SignupDto>({
             query: (user) => ({
-                url: '/signup',
-                method: 'POST',
+                url: "/signup",
+                method: "POST",
                 body: user
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
         login: builder.mutation<CredentialsDto, LoginDto>({
             query: (credentials) => ({
-                url: '/login',
-                method: 'POST',
+                url: "/login",
+                method: "POST",
                 body: credentials
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
     })
 })
