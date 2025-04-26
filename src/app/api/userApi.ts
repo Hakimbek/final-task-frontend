@@ -1,17 +1,6 @@
 import { baseApi } from "./baseApi.ts";
-import { TemplateDto } from "./templateApi.ts";
 import { MessageDto } from "../dto/Message.dto.ts";
-
-export interface UserDto {
-    id: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    isAdmin: boolean;
-    isActive: boolean;
-    image: string;
-    templates: TemplateDto[];
-}
+import { UserDto, ImageDto, EditUserDto } from "../dto/User.dto.ts";
 
 const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -23,7 +12,7 @@ const userApi = baseApi.injectEndpoints({
             query: (userId) => `user/${userId}`,
             providesTags: ["User", "Template"]
         }),
-        uploadImageById: builder.mutation<void, { url: string, userId: string }>({
+        uploadImageById: builder.mutation<MessageDto, ImageDto>({
             query: ({ url, userId }) => ({
                 url: `/user/upload/${userId}`,
                 method: "PUT",
@@ -31,7 +20,7 @@ const userApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["User"]
         }),
-        editUserById: builder.mutation<MessageDto, { firstname: string, lastname: string, userId: string }>({
+        editUserById: builder.mutation<MessageDto, EditUserDto>({
             query: ({ firstname, lastname, userId }) => ({
                 url: `/user/edit/${userId}`,
                 method: "PUT",
