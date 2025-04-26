@@ -40,7 +40,7 @@ export const FillOutTemplateForm = () => {
             <form onSubmit={handleSubmit}>
                 <div style={{ width: 400 }} className="d-flex flex-column gap-4">
                     {
-                        template?.questions?.map(({ id, title, description, isVisible, type, answer = '' }) => (
+                        template?.questions?.map(({ id, title, description, isVisible, type }) => (
                             <Question
                                 key={id}
                                 id={id || ''}
@@ -49,7 +49,6 @@ export const FillOutTemplateForm = () => {
                                 isVisible={isVisible}
                                 type={type}
                                 templateUserId={template?.user?.id}
-                                answer={answer}
                             />
                         ))
                     }

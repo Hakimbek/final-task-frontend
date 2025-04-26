@@ -1,52 +1,43 @@
 import { baseApi } from "./baseApi.ts";
-
-export interface QuestionDto {
-    id?: string;
-    title: string;
-    description: string;
-    isVisible: boolean;
-    type: string;
-    templateId?: string;
-    answer?: string;
-    order: number;
-}
+import { MessageDto } from "../dto/Message.dto.ts";
+import { CreateQuestionDto, QuestionDto, EditQuestionDto } from "../dto/Question.dto.ts";
 
 const questionApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        createQuestion: builder.mutation<QuestionDto, QuestionDto>({
+        createQuestion: builder.mutation<QuestionDto, CreateQuestionDto>({
             query: (question) => ({
-                url: '/question',
-                method: 'POST',
+                url: "/question",
+                method: "POST",
                 body: question
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
         getQuestionById: builder.query<QuestionDto, string>({
             query: (questionId) => `question/${questionId}`,
-            providesTags: ['Template']
+            providesTags: ["Template"]
         }),
-        deleteQuestionById: builder.mutation<{ message: string }, string>({
+        deleteQuestionById: builder.mutation<MessageDto, string>({
             query: (questionId) => ({
                 url: `/question/${questionId}`,
-                method: 'DELETE'
+                method: "DELETE"
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
-        editQuestionById: builder.mutation<{ message: string }, QuestionDto>({
+        editQuestionById: builder.mutation<MessageDto, EditQuestionDto>({
             query: (question) => ({
                 url: `/question/${question.id}`,
-                method: 'PUT',
+                method: "PUT",
                 body: question
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
-        reorder: builder.mutation<{ message: string }, string[]>({
+        reorder: builder.mutation<MessageDto, string[]>({
             query: (questionIds) => ({
-                url: `/question/reorder`,
-                method: 'PATCH',
+                url: "/question/reorder",
+                method: "PATCH",
                 body: { questionIds }
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
     })
 })

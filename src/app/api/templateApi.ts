@@ -1,24 +1,6 @@
 import { baseApi } from "./baseApi.ts";
-import { UserDto } from "../dto/User.dto.ts";
-
-export interface TemplateDto {
-    id?: string;
-    title: string;
-    description: string;
-    topic: string;
-    user?: UserDto;
-    questions?: {
-        id: string;
-        title: string;
-        description: string;
-        isVisible: boolean;
-        type: string;
-        templateId: string;
-        answer: string;
-        order: number;
-    }[];
-    tags: string[];
-}
+import { MessageDto } from "../dto/Message.dto.ts";
+import { TemplateDto, CreateTemplateDto, EditTemplateDto } from "../dto/Template.dto.ts";
 
 const templateApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -30,7 +12,7 @@ const templateApi = baseApi.injectEndpoints({
             query: (templateId) => `template/${templateId}`,
             providesTags: ["Template"],
         }),
-        createTemplate: builder.mutation<TemplateDto, TemplateDto>({
+        createTemplate: builder.mutation<TemplateDto, CreateTemplateDto>({
             query: (template) => ({
                 url: "/template",
                 method: "POST",
@@ -38,7 +20,7 @@ const templateApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Template"]
         }),
-        editTemplateById: builder.mutation<{ message: string }, TemplateDto>({
+        editTemplateById: builder.mutation<MessageDto, EditTemplateDto>({
             query: (template) => ({
                 url: `/template/${template.id}`,
                 method: "PUT",
@@ -46,7 +28,7 @@ const templateApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Template"]
         }),
-        deleteTemplateById: builder.mutation<{ message: string }, string>({
+        deleteTemplateById: builder.mutation<MessageDto, string>({
             query: (templateId) => ({
                 url: `/template/${templateId}`,
                 method: "DELETE"

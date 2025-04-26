@@ -4,18 +4,10 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-ki
 import { SortableQuestion } from "./SortableQuestion.tsx";
 import { useReorderMutation } from "../../app/api/questionApi.ts";
 import { toast } from "react-toastify";
+import { QuestionDto } from "../../app/dto/Question.dto.ts";
 
 interface SortableQuestionListProps {
-    initialQuestions: {
-        id: string;
-        title: string;
-        description: string;
-        isVisible: boolean;
-        type: string;
-        templateId: string;
-        answer: string;
-        order: number;
-    }[];
+    initialQuestions: QuestionDto[];
     templateUserId: string;
 }
 

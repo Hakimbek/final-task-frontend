@@ -14,7 +14,6 @@ interface QuestionProps {
     isVisible: boolean;
     type: string;
     templateUserId: string | undefined;
-    answer: string;
 }
 
 export const Question = ({
@@ -24,7 +23,6 @@ export const Question = ({
     isVisible,
     type,
     templateUserId,
-    answer
 }: QuestionProps) => {
     const { t } = useTranslation();
     const { user } = useAuth();
@@ -38,9 +36,9 @@ export const Question = ({
                 <div className="d-flex flex-column gap-2 cursor-pointer">
                     <div>{title}</div>
                     <div>{description}</div>
-                    {type === "Text" && <Text answer={answer} questionId={id} />}
-                    {type === "Textarea" && <Textarea answer={answer} questionId={id} />}
-                    {type === "Number" && <Number answer={answer} questionId={id} />}
+                    {type === "Text" && <Text questionId={id} />}
+                    {type === "Textarea" && <Textarea questionId={id} />}
+                    {type === "Number" && <Number questionId={id} />}
                 </div>
                 {(user?.isAdmin || isOwner) && <QuestionSettings id={id} />}
             </InfoWrapper>

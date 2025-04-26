@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 
 interface NumberInputProps {
-    answer: string;
     questionId: string;
 }
 
-export const Number = ({ questionId, answer }: NumberInputProps) => {
+export const Number = ({ questionId }: NumberInputProps) => {
     const number = useRef<HTMLInputElement>(null);
     const [isError, setIsError] = useState(false)
 
@@ -22,7 +21,6 @@ export const Number = ({ questionId, answer }: NumberInputProps) => {
     return (
         <input
             ref={number}
-            defaultValue={answer}
             required
             type="number"
             min={0}

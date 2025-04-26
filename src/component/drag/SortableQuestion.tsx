@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { QuestionDto } from "../../app/api/questionApi.ts";
+import { QuestionDto } from "../../app/dto/Question.dto.ts";
 import { Question } from "../question/Question.tsx";
 
 interface SortableQuestionProps {
@@ -41,7 +41,6 @@ export const SortableQuestion = ({
                 isVisible={question.isVisible}
                 type={question.type}
                 templateUserId={templateUserId}
-                answer={question.answer || ''}
             />
         </div>
     );

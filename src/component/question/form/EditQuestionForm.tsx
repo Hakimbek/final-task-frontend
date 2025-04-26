@@ -4,20 +4,32 @@ import { Select } from "../../inputs/Select.tsx";
 import { Visibility } from "../../inputs/Visibility.tsx";
 import { useTranslation } from "react-i18next";
 import { questionTypes } from "./questionTypes.ts";
-import { Label, Spinner } from "reactstrap";
+import { Label } from "reactstrap";
 import { toast } from "react-toastify";
 import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { useFormik } from "formik";
 import { questionValidation } from "./validation.ts";
+import { Spinner } from "../../spinner/Spinner.tsx";
 
-const EditQuestionForm = () => {
-    const { questionId = '', templateId = '', userId } = useParams();
+export const EditQuestionForm = () => {
+    const { questionId = '', templateId = '' } = useParams();
     const { data, isLoading: isQuestionLoading } = useGetQuestionByIdQuery(questionId);
     const [editQuestionById] = useEditQuestionByIdMutation();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
+    const {
+        handleSubmit,
+        values,
+        handleChange,
+        handleBlur,
+        touched,
+        errors,
+        setFieldValue,
+        isValid,
+        dirty,
+        isSubmitting
+    } = useFormik({
         enableReinitialize: true,
         initialValues: {
             title: data?.title || '',
@@ -26,22 +38,21 @@ const EditQuestionForm = () => {
             isVisible: data?.isVisible || true
         },
         validationSchema: questionValidation,
-        onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
+        onSubmit: (
+            { title, description, type, isVisible },
+            { setSubmitting }
+        ) => {
             editQuestionById({ id: questionId, title, description, isVisible, type })
                 .unwrap()
                 .then(() => {
-                    navigate(`/user/${userId}/template/${templateId}`)
+                    navigate(`/template/${templateId}`)
                 })
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }
     });
 
-    if (isQuestionLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    )
+    if (isQuestionLoading) return <Spinner />;
 
     return (
         <form
@@ -84,5 +95,3 @@ const EditQuestionForm = () => {
         </form>
     )
 }
-
-export default EditQuestionForm;

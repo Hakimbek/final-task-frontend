@@ -10,18 +10,32 @@ import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { questionValidation } from "./validation.ts";
 import { questionTypes } from "./questionTypes.ts";
 
-const AddQuestionForm = () => {
+export const AddQuestionForm = () => {
     const { t } = useTranslation();
     const [createQuestion] = useCreateQuestionMutation();
     const navigate = useNavigate();
-    const { templateId, userId } = useParams();
-    const { handleSubmit, values, handleChange, handleBlur, touched, errors, setFieldValue, isValid, dirty, isSubmitting } = useFormik({
+    const { templateId } = useParams();
+    const {
+        handleSubmit,
+        values,
+        handleChange,
+        handleBlur,
+        touched,
+        errors,
+        setFieldValue,
+        isValid,
+        dirty,
+        isSubmitting
+    } = useFormik({
         initialValues: { title: '', description: '', type: 'Text', isVisible: true },
         validationSchema: questionValidation,
-        onSubmit: ({ title, description, type, isVisible }, { setSubmitting }) => {
+        onSubmit: (
+            { title, description, type, isVisible },
+            { setSubmitting }
+        ) => {
             createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
                 .unwrap()
-                .then(() => navigate(`/user/${userId}/template/${templateId}`))
+                .then(() => navigate(`/template/${templateId}`))
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }
@@ -68,5 +82,3 @@ const AddQuestionForm = () => {
         </form>
     )
 }
-
-export default AddQuestionForm;

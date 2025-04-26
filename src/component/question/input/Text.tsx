@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 
 interface TextInputProps {
-    answer: string;
     questionId: string;
 }
 
-export const Text = ({ answer, questionId }: TextInputProps) => {
+export const Text = ({ questionId }: TextInputProps) => {
     const text = useRef<HTMLInputElement>(null);
     const [isError, setIsError] = useState(false)
 
@@ -22,7 +21,6 @@ export const Text = ({ answer, questionId }: TextInputProps) => {
     return (
         <input
             ref={text}
-            defaultValue={answer}
             required
             type="text"
             name={questionId}
