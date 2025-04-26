@@ -19,7 +19,10 @@ interface SortableQuestionListProps {
     templateUserId: string;
 }
 
-export const SortableQuestionList = ({ initialQuestions, templateUserId }: SortableQuestionListProps) => {
+export const SortableQuestionList = ({
+    initialQuestions,
+    templateUserId
+}: SortableQuestionListProps) => {
     const [questions, setQuestions] = useState(initialQuestions);
     const questionIds: string[] = questions?.map(q => q.id);
     const sensors = useSensors(useSensor(PointerSensor));

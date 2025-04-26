@@ -1,5 +1,5 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from '@dnd-kit/utilities';
+import { CSS } from "@dnd-kit/utilities";
 import { QuestionDto } from "../../app/api/questionApi.ts";
 import { Question } from "../question/Question.tsx";
 
@@ -8,7 +8,10 @@ interface SortableQuestionProps {
     templateUserId: string;
 }
 
-export const SortableQuestion = ({ question, templateUserId }: SortableQuestionProps) => {
+export const SortableQuestion = ({
+    question,
+    templateUserId
+}: SortableQuestionProps) => {
     const {
         attributes,
         listeners,
