@@ -22,3 +22,8 @@ export interface EditQuestionDto {
     isVisible: boolean;
     type: string;
 }
+
+export interface ReorderDto {
+    questionIds: string[];
+    templateId: string;
+}

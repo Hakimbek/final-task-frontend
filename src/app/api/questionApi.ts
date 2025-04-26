@@ -1,6 +1,6 @@
 import { baseApi } from "./baseApi.ts";
 import { MessageDto } from "../dto/Message.dto.ts";
-import { CreateQuestionDto, QuestionDto, EditQuestionDto } from "../dto/Question.dto.ts";
+import { CreateQuestionDto, QuestionDto, EditQuestionDto, ReorderDto } from "../dto/Question.dto.ts";
 
 const questionApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -31,11 +31,11 @@ const questionApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Template"]
         }),
-        reorder: builder.mutation<MessageDto, string[]>({
-            query: (questionIds) => ({
+        reorder: builder.mutation<MessageDto, ReorderDto>({
+            query: (reorder) => ({
                 url: "/question/reorder",
                 method: "PATCH",
-                body: { questionIds }
+                body: reorder
             }),
             invalidatesTags: ["Template"]
         }),

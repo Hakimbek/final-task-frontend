@@ -5,6 +5,8 @@ import { SortableQuestion } from "./SortableQuestion.tsx";
 import { useReorderMutation } from "../../app/api/questionApi.ts";
 import { toast } from "react-toastify";
 import { QuestionDto } from "../../app/dto/Question.dto.ts";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
 interface SortableQuestionListProps {
     initialQuestions: QuestionDto[];
@@ -19,6 +21,8 @@ export const SortableQuestionList = ({
     const questionIds: string[] = questions?.map(q => q.id);
     const sensors = useSensors(useSensor(PointerSensor));
     const [reorder] = useReorderMutation();
+    const { t } = useTranslation();
+    const { templateId = '' } = useParams();
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
@@ -28,9 +32,12 @@ export const SortableQuestionList = ({
             const newOrder = arrayMove(questions, oldIndex, newIndex);
             setQuestions(newOrder);
 
-            reorder(newOrder.map(q => q.id))
+            reorder({
+                templateId,
+                questionIds: newOrder.map(q => q.id)
+            })
                 .unwrap()
-                .catch(result => toast(result.data.message));
+                .catch(() => toast(t("error.common")));
         }
     };
 
