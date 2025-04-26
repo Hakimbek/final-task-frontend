@@ -14,17 +14,30 @@ export const Login = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const { isValid, dirty, handleSubmit, isSubmitting, touched, errors, handleBlur, handleChange, values } = useFormik({
+    const {
+        isValid,
+        dirty,
+        handleSubmit,
+        isSubmitting,
+        touched,
+        errors,
+        handleBlur,
+        handleChange,
+        values
+    } = useFormik({
         initialValues: { email: '', password: '' },
         validationSchema: loginValidationSchema,
-        onSubmit: ({email, password}, { setSubmitting }) => {
+        onSubmit: (
+            { email, password },
+            { setSubmitting }
+        ) => {
             login({ email, password })
                 .unwrap()
-                .then(({ token, id }) => {
-                    dispatch(setAuth({ token, userId: id }));
+                .then(({ token, userId }) => {
+                    dispatch(setAuth({ token, userId }));
                     navigate("/home");
                 })
-                .catch(result => toast(result.data.message))
+                .catch(() => toast(t("error.login")))
                 .finally(() => setSubmitting(false));
         }
     })

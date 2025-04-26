@@ -4,7 +4,7 @@ const uploadApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getSignedUrl: builder.query<{ signedUrl: string, key: string }, { fileName: string; fileType: string }>({
             query: ({ fileName, fileType }) => ({
-                url: `upload/signed-url?fileName=${fileName}&fileType=${fileType}`,
+                url: `/signed-url?fileName=${fileName}&fileType=${fileType}`,
                 method: 'GET',
             }),
         }),

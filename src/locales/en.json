@@ -14,7 +14,12 @@
     "lastname": "Lastname is required",
     "email": "Email is not valid",
     "title": "Title is required",
-    "description": "Description is required"
+    "description": "Description is required",
+    "signup": "User with this email already exists",
+    "login": "Email or password is wrong"
+  },
+  "success": {
+    "signup": "User successfully created. Please, log in"
   },
   "search": "Search",
   "template": "Template",

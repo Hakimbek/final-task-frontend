@@ -9,23 +9,40 @@ import { Label } from "reactstrap";
 export const Signup = () => {
     const [signup] = useSignupMutation();
     const { t } = useTranslation();
-    const { isSubmitting, values, isValid, dirty, handleSubmit, handleBlur, handleChange, touched, errors } = useFormik({
+    const {
+        isSubmitting,
+        values,
+        isValid,
+        dirty,
+        handleSubmit,
+        handleBlur,
+        handleChange,
+        touched,
+        errors
+    } = useFormik({
         initialValues: { firstname: '', lastname: '', email: '', password: '' },
         validationSchema: signupValidationSchema,
-        onSubmit: ({ firstname, lastname, email, password }, { setSubmitting, resetForm }) => {
+        onSubmit: (
+            { firstname, lastname, email, password },
+            { setSubmitting, resetForm }
+        ) => {
             signup({ email, password, firstname, lastname })
                 .unwrap()
-                .then((result) => {
+                .then(() => {
                     resetForm();
-                    toast(result.message)
+                    toast(t("success.signup"))
                 })
-                .catch(result => toast(result.data.message))
+                .catch(() => toast(t("error.signup")))
                 .finally(() => setSubmitting(false));
         }
     })
 
     return (
-        <form onSubmit={handleSubmit} className="d-flex flex-column mx-auto mt-5 gap-3 text-theme" style={{ width: "350px" }}>
+        <form
+            onSubmit={handleSubmit}
+            className="d-flex flex-column mx-auto mt-5 gap-3 text-theme"
+            style={{ width: "350px" }}
+        >
             <div className="d-flex flex-column">
                 <Label>{t("firstname")}</Label>
                 <input

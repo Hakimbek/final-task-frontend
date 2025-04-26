@@ -14,14 +14,11 @@ export const SubmitButton = ({ isDisabled, isSubmitting, text }: SubmitButtonPro
             disabled={isDisabled}
             color="warning"
         >
-            {text}
-            <Spinner
-                size="sm"
-                color="black"
-                type="grow"
-                className={`position-absolute ${isSubmitting ? "visible" : "invisible"}`}
-                style={{ margin: "0 0 0 80px" }}
-            />
+            {
+                isSubmitting
+                    ? <Spinner style={{ height: "24px", width: "24px" }} size="sm" color="black" type="grow"/>
+                    : text
+            }
         </Button>
     )
 }

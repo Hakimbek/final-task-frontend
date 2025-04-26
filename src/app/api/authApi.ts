@@ -1,11 +1,10 @@
 import { baseApi } from "./baseApi.ts";
+import { LoginDto, SignupDto, CredentialsDto } from "../dto/Auth.dto.ts";
+import { MessageDto } from "../dto/Message.dto.ts";
 
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        signup: builder.mutation<
-            { message: string },
-            { firstname: string, lastname: string, email: string, password: string; }
-        >({
+        signup: builder.mutation<MessageDto, SignupDto>({
             query: (user) => ({
                 url: '/signup',
                 method: 'POST',
@@ -13,7 +12,7 @@ const authApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['User']
         }),
-        login: builder.mutation<{ token: string, id: string; }, { email: string, password: string; }>({
+        login: builder.mutation<CredentialsDto, LoginDto>({
             query: (credentials) => ({
                 url: '/login',
                 method: 'POST',
