@@ -8,18 +8,21 @@ interface ActivateUsersButtonProps {
     setUsers: (users: string[]) => void;
 }
 
-export const ActivateUsersButton = ({ userIds, setUsers }: ActivateUsersButtonProps) => {
+export const ActivateUsersButton = ({
+    userIds,
+    setUsers
+}: ActivateUsersButtonProps) => {
     const { t } = useTranslation();
     const [activateUserByIds, { isLoading }] = useActivateUserByIdsMutation();
 
     const handleClick = () => {
         activateUserByIds(userIds)
             .unwrap()
-            .then(response => {
-                toast(response.message)
+            .then(() => {
+                toast(t("success.status"))
                 setUsers([]);
             })
-            .catch(response => toast(response.data.message));
+            .catch(() => toast(t("error.common")));
     }
 
     return (

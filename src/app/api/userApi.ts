@@ -1,5 +1,6 @@
 import { baseApi } from "./baseApi.ts";
 import { TemplateDto } from "./templateApi.ts";
+import { MessageDto } from "../dto/Message.dto.ts";
 
 export interface UserDto {
     id: string;
@@ -15,75 +16,75 @@ export interface UserDto {
 const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllUsers: builder.query<UserDto[], void>({
-            query: () => `/user`,
-            providesTags: ['User', 'Template']
+            query: () => "/user",
+            providesTags: ["User", "Template"]
         }),
         getUserById: builder.query<UserDto, string>({
             query: (userId) => `user/${userId}`,
-            providesTags: ['User', 'Template']
+            providesTags: ["User", "Template"]
         }),
         uploadImageById: builder.mutation<void, { url: string, userId: string }>({
             query: ({ url, userId }) => ({
                 url: `/user/upload/${userId}`,
-                method: 'PUT',
+                method: "PUT",
                 body: { url }
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        editUserById: builder.mutation<{ message: string }, { firstname: string, lastname: string, userId: string }>({
+        editUserById: builder.mutation<MessageDto, { firstname: string, lastname: string, userId: string }>({
             query: ({ firstname, lastname, userId }) => ({
                 url: `/user/edit/${userId}`,
-                method: 'PUT',
+                method: "PUT",
                 body: { firstname, lastname }
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        deleteUserByIds: builder.mutation<{ message: string }, string[]>({
+        deleteUserByIds: builder.mutation<MessageDto, string[]>({
             query: (userIds) => ({
-                url: `/user`,
-                method: 'DELETE',
+                url: "/user",
+                method: "DELETE",
                 body: { userIds },
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        deleteUserById: builder.mutation<{ message: string }, string>({
+        deleteUserById: builder.mutation<MessageDto, string>({
             query: (userId) => ({
                 url: `/user/${userId}`,
-                method: 'DELETE',
+                method: "DELETE",
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        activateUserByIds: builder.mutation<{ message: string }, string[]>({
+        activateUserByIds: builder.mutation<MessageDto, string[]>({
             query: (userIds) => ({
-                url: `/user/activate`,
-                method: 'PUT',
+                url: "/user/activate",
+                method: "PUT",
                 body: { userIds },
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        deactivateUserByIds: builder.mutation<{ message: string }, string[]>({
+        deactivateUserByIds: builder.mutation<MessageDto, string[]>({
             query: (userIds) => ({
-                url: `/user/deactivate`,
-                method: 'PUT',
+                url: "/user/deactivate",
+                method: "PUT",
                 body: { userIds },
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        makeAdminUserByIds: builder.mutation<{ message: string }, string[]>({
+        makeAdminByIds: builder.mutation<MessageDto, string[]>({
             query: (userIds) => ({
-                url: `/user/admin`,
-                method: 'PUT',
+                url: "/user/admin",
+                method: "PUT",
                 body: { userIds },
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         }),
-        makeUserUserByIds: builder.mutation<{ message: string }, string[]>({
+        makeUserByIds: builder.mutation<MessageDto, string[]>({
             query: (userIds) => ({
-                url: `/user/user`,
-                method: 'PUT',
+                url: "/user/user",
+                method: "PUT",
                 body: { userIds },
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ["User"]
         })
     })
 })
@@ -96,7 +97,7 @@ export const {
     useDeleteUserByIdsMutation,
     useActivateUserByIdsMutation,
     useDeactivateUserByIdsMutation,
-    useMakeAdminUserByIdsMutation,
-    useMakeUserUserByIdsMutation,
+    useMakeAdminByIdsMutation,
+    useMakeUserByIdsMutation,
     useDeleteUserByIdMutation
 } = userApi;

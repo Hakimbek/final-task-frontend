@@ -1,6 +1,6 @@
 import { Button } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import { useMakeAdminUserByIdsMutation } from "../../../app/api/userApi.ts";
+import { useMakeAdminByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface MakeAdminButtonProps {
@@ -8,18 +8,21 @@ interface MakeAdminButtonProps {
     setUsers: (users: string[]) => void;
 }
 
-export const MakeAdminButton = ({ userIds, setUsers }: MakeAdminButtonProps) => {
+export const MakeAdminButton = ({
+    userIds,
+    setUsers
+}: MakeAdminButtonProps) => {
     const { t } = useTranslation();
-    const [makeAdminUserByIds, { isLoading }] = useMakeAdminUserByIdsMutation();
+    const [makeAdminUserByIds, { isLoading }] = useMakeAdminByIdsMutation();
 
     const handleClick = () => {
         makeAdminUserByIds(userIds)
             .unwrap()
-            .then(response => {
-                toast(response.message);
+            .then(() => {
+                toast(t("success.role"));
                 setUsers([]);
             })
-            .catch(response => toast(response.data.message));
+            .catch(() => toast(t("error.common")));
     }
 
     return (

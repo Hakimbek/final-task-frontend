@@ -1,6 +1,6 @@
 import { Button } from "reactstrap";
 import { useTranslation } from "react-i18next";
-import { useMakeUserUserByIdsMutation } from "../../../app/api/userApi.ts";
+import { useMakeUserByIdsMutation } from "../../../app/api/userApi.ts";
 import { toast } from "react-toastify";
 
 interface MakeUserButtonProps {
@@ -8,18 +8,21 @@ interface MakeUserButtonProps {
     setUsers: (users: string[]) => void;
 }
 
-export const MakeUserButton = ({ userIds, setUsers }: MakeUserButtonProps) => {
+export const MakeUserButton = ({
+    userIds,
+    setUsers
+}: MakeUserButtonProps) => {
     const { t } = useTranslation();
-    const [makeUserUserByIds, { isLoading }] = useMakeUserUserByIdsMutation();
+    const [makeUserUserByIds, { isLoading }] = useMakeUserByIdsMutation();
 
     const handleClick = () => {
         makeUserUserByIds(userIds)
             .unwrap()
-            .then(response => {
-                toast(response.message);
+            .then(() => {
+                toast(t("success.role"));
                 setUsers([]);
             })
-            .catch(response => toast(response.data.message));
+            .catch(() => toast(t("error.common")));
     }
 
     return (

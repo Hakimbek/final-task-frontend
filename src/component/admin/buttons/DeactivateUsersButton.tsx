@@ -8,18 +8,21 @@ interface DeactivateUsersButtonProps {
     setUsers: (users: string[]) => void;
 }
 
-export const DeactivateUsersButton = ({ userIds, setUsers }: DeactivateUsersButtonProps) => {
+export const DeactivateUsersButton = ({
+    userIds,
+    setUsers
+}: DeactivateUsersButtonProps) => {
     const { t } = useTranslation();
     const [deactivateUserByIds, { isLoading }] = useDeactivateUserByIdsMutation();
 
     const handleClick = () => {
         deactivateUserByIds(userIds)
             .unwrap()
-            .then(response => {
-                toast(response.message);
+            .then(() => {
+                toast(t("success.status"));
                 setUsers([]);
             })
-            .catch(response => toast(response.data.message));
+            .catch(() => toast(t("error.common")));
     }
 
     return (

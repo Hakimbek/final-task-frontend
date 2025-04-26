@@ -8,18 +8,21 @@ interface DeleteUsersProps {
     setUsers: (users: string[]) => void;
 }
 
-export const DeleteUsersButton = ({ userIds, setUsers }: DeleteUsersProps) => {
+export const DeleteUsersButton = ({
+    userIds,
+    setUsers
+}: DeleteUsersProps) => {
     const { t } = useTranslation();
     const [deleteUserByIds, { isLoading }] = useDeleteUserByIdsMutation();
 
     const handleDelete = () => {
         deleteUserByIds(userIds)
             .unwrap()
-            .then(response => {
-                toast(response.message);
+            .then(() => {
+                toast(t("success.deleted"));
                 setUsers([]);
             })
-            .catch(response => toast(response.data.message));
+            .catch(() => toast(t("error.common")));
     }
 
     return (

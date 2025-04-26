@@ -16,10 +16,14 @@
     "title": "Title is required",
     "description": "Description is required",
     "signup": "User with this email already exists",
-    "login": "Email or password is wrong"
+    "login": "Email or password is wrong",
+    "common": "Something goes wrong, try later"
   },
   "success": {
-    "signup": "User successfully created. Please, log in"
+    "signup": "User successfully created. Please, log in",
+    "status": "Status changed",
+    "deleted": "Deleted",
+    "role": "Role changed"
   },
   "search": "Search",
   "template": "Template",
