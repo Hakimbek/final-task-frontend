@@ -1,5 +1,5 @@
 import { baseApi } from "./baseApi.ts";
-import { UserDto } from "./userApi.ts";
+import { UserDto } from "../dto/User.dto.ts";
 
 export interface TemplateDto {
     id?: string;
@@ -24,34 +24,34 @@ const templateApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getTemplates: builder.query<TemplateDto[], string>({
             query: (search) => `template?search=${search}`,
-            providesTags: ['Template']
+            providesTags: ["Template"]
         }),
         getTemplateById: builder.query<TemplateDto, string>({
             query: (templateId) => `template/${templateId}`,
-            providesTags: ['Template'],
+            providesTags: ["Template"],
         }),
         createTemplate: builder.mutation<TemplateDto, TemplateDto>({
             query: (template) => ({
-                url: '/template',
-                method: 'POST',
+                url: "/template",
+                method: "POST",
                 body: template
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
         editTemplateById: builder.mutation<{ message: string }, TemplateDto>({
             query: (template) => ({
                 url: `/template/${template.id}`,
-                method: 'PUT',
+                method: "PUT",
                 body: template
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
         deleteTemplateById: builder.mutation<{ message: string }, string>({
             query: (templateId) => ({
                 url: `/template/${templateId}`,
-                method: 'DELETE'
+                method: "DELETE"
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
     })
 })

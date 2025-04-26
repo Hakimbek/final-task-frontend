@@ -9,7 +9,7 @@ export const CreateTemplateButton = () => {
     return (
         <Button
             color="warning"
-            onClick={() => navigate(`/template/create`)}
+            onClick={() => navigate("/template/create")}
         >
             {t("createTemplate")}
         </Button>

@@ -1,7 +1,7 @@
 import { useGetTemplateByIdQuery, useEditTemplateByIdMutation } from "../../../app/api/templateApi.ts";
 import { useGetAllTopicsQuery } from "../../../app/api/topicApi.ts";
 import { useNavigate, useParams } from "react-router-dom";
-import { Label, Spinner } from "reactstrap";
+import { Label } from "reactstrap";
 import { Select } from "../../inputs/Select.tsx";
 import { Tags } from "../../inputs/Tags.tsx";
 import { useTranslation } from "react-i18next";
@@ -9,16 +9,28 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { templateValidation } from "./validation.ts";
+import { Spinner } from "../../spinner/Spinner.tsx";
 
-const EditTemplateForm = () => {
-    const { templateId = '', userId = '' } = useParams();
-    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery({ templateId, userId: '' });
+export const EditTemplateForm = () => {
+    const { templateId = '' } = useParams();
+    const { data, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
     const { data: topics, isLoading: isTopicsLoading } = useGetAllTopicsQuery();
     const [editTemplate] = useEditTemplateByIdMutation();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
+    const {
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        isValid,
+        dirty,
+        setFieldValue
+    } = useFormik({
         enableReinitialize: true,
         initialValues: {
             title: data?.title || '',
@@ -27,20 +39,19 @@ const EditTemplateForm = () => {
             tags: data?.tags || []
         },
         validationSchema: templateValidation,
-        onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
+        onSubmit: (
+            { title, description, topic, tags },
+            { setSubmitting }
+        ) => {
             editTemplate({ id: templateId, title, description, topic, tags })
                 .unwrap()
-                .then(() => navigate(`/user/${userId}/template/${templateId}`))
+                .then(() => navigate(`/template/${templateId}`))
                 .catch(result => toast(result.data.message))
                 .finally(() => setSubmitting(false));
         }
     })
 
-    if (isTopicsLoading || isTemplateLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isTopicsLoading || isTemplateLoading) return <Spinner />;
 
     return (
         <form
@@ -83,5 +94,3 @@ const EditTemplateForm = () => {
         </form>
     )
 }
-
-export default EditTemplateForm;

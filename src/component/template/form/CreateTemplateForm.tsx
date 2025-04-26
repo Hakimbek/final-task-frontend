@@ -1,41 +1,51 @@
-import { Label, Spinner } from "reactstrap";
+import { Label } from "reactstrap";
 import { Select } from "../../inputs/Select.tsx";
 import { Tags } from "../../inputs/Tags.tsx";
 import { useGetAllTopicsQuery } from "../../../app/api/topicApi.ts";
 import { useCreateTemplateMutation } from "../../../app/api/templateApi.ts";
 import { toast } from "react-toastify";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { templateValidation } from "./validation.ts";
+import { Spinner } from "../../spinner/Spinner.tsx";
 
-const CreateTemplateForm = () => {
+export const CreateTemplateForm = () => {
     const { data: topics, isLoading } = useGetAllTopicsQuery();
     const [createTemplate] = useCreateTemplateMutation();
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const { userId = '' } = useParams();
 
-    const { handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting, isValid, dirty, setFieldValue } = useFormik({
+    const {
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        isValid,
+        dirty,
+        setFieldValue
+    } = useFormik({
         initialValues: { title: '', description: '', topic: 'Test', tags: []  },
         validationSchema: templateValidation,
-        onSubmit: ({ title, description, topic, tags }, { setSubmitting }) => {
+        onSubmit: (
+            { title, description, topic, tags },
+            { setSubmitting }
+        ) => {
             createTemplate({ title, description, topic, tags })
                 .unwrap()
                 .then(result => {
-                    navigate(`/user/${userId}/template/${result.id}`)
+                    navigate(`/template/${result.id}`)
                 })
-                .catch(result => toast(result.data.message))
+                .catch(() => toast(t("error.common")))
                 .finally(() => setSubmitting(false));
         }
     })
 
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <form
@@ -78,5 +88,3 @@ const CreateTemplateForm = () => {
         </form>
     )
 }
-
-export default CreateTemplateForm;

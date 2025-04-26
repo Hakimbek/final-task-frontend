@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import TemplateHeader from "./header/TemplateHeader.tsx";
 import { TemplateSettings } from "./settings/TemplateSettings.tsx";
 import { SortableQuestionList } from "../drag/SortableQuestionList.tsx";
