@@ -6,12 +6,12 @@ export const LoginButton = () => {
     const { t } = useTranslation();
     const location = useLocation();
 
-    if (location.pathname.includes('login')) return null;
+    if (location.pathname.includes("login")) return null;
 
     return (
         <button
             className="button-theme"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate("/login")}
         >
             {t("login")}
         </button>

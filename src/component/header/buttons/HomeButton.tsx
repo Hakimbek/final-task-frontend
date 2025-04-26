@@ -5,7 +5,7 @@ export const HomeButton = () => {
 
     return (
         <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate("/home")}
             className="button-theme"
         >
             <i className="bi bi-house"></i>
