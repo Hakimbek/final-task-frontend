@@ -23,7 +23,8 @@
     "signup": "User successfully created. Please, log in",
     "status": "Status changed",
     "deleted": "Deleted",
-    "role": "Role changed"
+    "role": "Role changed",
+    "thank": "Thank you"
   },
   "search": "Search",
   "template": "Template",

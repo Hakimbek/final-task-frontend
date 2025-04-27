@@ -29,8 +29,8 @@ export const ResponseCreateForm = () => {
 
         createResponse({ userId: user?.id || '', templateId, answers })
             .unwrap()
-            .then(result =>  toast(result.message))
-            .catch(result => toast(result.data.message));
+            .then(() =>  toast(t("success.thank")))
+            .catch(() => toast(t("error.common")));
     }
 
     if (isTemplateLoading || isLoading) return <Spinner />;
