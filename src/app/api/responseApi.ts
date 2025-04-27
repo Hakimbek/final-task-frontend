@@ -1,33 +1,10 @@
 import { baseApi } from "./baseApi.ts";
-import { UserDto } from "../dto/User.dto.ts";
-import { TemplateDto } from "../dto/Template.dto.ts";
 import { MessageDto } from "../dto/Message.dto.ts";
-import { QuestionDto } from "../dto/Question.dto.ts";
-
-interface ResponseDto {
-    id: string;
-    user: UserDto;
-    template: TemplateDto;
-    answers: {
-        id: string;
-        value: string;
-        question: QuestionDto;
-    }[]
-}
+import { ResponseDto, CreateResponseDto, EditResponseDto } from "../dto/Response.dto.ts";
 
 export const responseApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        createResponse: builder.mutation<
-            MessageDto,
-            {
-                userId: string;
-                templateId: string;
-                answers: {
-                    questionId: string;
-                    answer: string;
-                }[]
-            }
-        >({
+        createResponse: builder.mutation<MessageDto, CreateResponseDto>({
             query: (response) => ({
                 url: "/response",
                 method: "POST",
@@ -35,16 +12,7 @@ export const responseApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Template"]
         }),
-        editResponseById: builder.mutation<
-            MessageDto,
-            {
-                responseId: string;
-                answers: {
-                    questionId: string;
-                    answer: string;
-                }[]
-            }
-        >({
+        editResponseById: builder.mutation<MessageDto, EditResponseDto>({
             query: (response) => ({
                 url: `/response/${response.responseId}`,
                 method: "POST",
@@ -61,7 +29,8 @@ export const responseApi = baseApi.injectEndpoints({
             providesTags: ["Template"]
         }),
         getResponsesByUserAndTemplateId: builder.query<ResponseDto, { userId: string; templateId: string }>({
-            query: ({ userId, templateId }) => `/response/user/${userId}/template/${templateId}`,
+            query: ({ userId, templateId }) =>
+                `/response/user/${userId}/template/${templateId}`,
             providesTags: ["Template"]
         }),
         getResponsesById: builder.query<ResponseDto, string>({
