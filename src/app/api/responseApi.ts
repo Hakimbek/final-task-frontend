@@ -35,6 +35,23 @@ export const responseApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Template"]
         }),
+        editResponseById: builder.mutation<
+            MessageDto,
+            {
+                responseId: string;
+                answers: {
+                    questionId: string;
+                    answer: string;
+                }[]
+            }
+        >({
+            query: (response) => ({
+                url: `/response/${response.responseId}`,
+                method: "POST",
+                body: response
+            }),
+            invalidatesTags: ["Template"]
+        }),
         getResponsesByTemplateId: builder.query<ResponseDto[], string>({
             query: (templateId) => `/response/template/${templateId}`,
             providesTags: ["Template"]
@@ -67,5 +84,6 @@ export const {
     useDeleteResponseByIdMutation,
     useGetResponsesByUserIdQuery,
     useGetResponsesByUserAndTemplateIdQuery,
-    useGetResponsesByIdQuery
+    useGetResponsesByIdQuery,
+    useEditResponseByIdMutation
 } = responseApi;

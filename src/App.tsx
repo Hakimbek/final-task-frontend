@@ -19,8 +19,9 @@ import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
 import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
 import { UserResponses } from "./component/responses/UserResponses.tsx";
 import { Admin } from "./component/admin/Admin.tsx";
-import { ResponseCreateForm } from "./component/template/form/ResponseCreateForm.tsx";
+import { CreateResponseForm } from "./component/template/form/CreateResponseForm.tsx";
 import { Response } from "./component/response/Response.tsx";
+import { EditResponseForm } from "./component/template/form/EditResponseForm.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -41,7 +42,7 @@ function App() {
             <Route path="/template/:templateId" element={<Template />} />
             <Route path="/template/:templateId/edit" element={<EditTemplateForm />} />
             <Route path="/template/:templateId/responses" element={<TemplateResponses />} />
-            <Route path="/template/:templateId/response/create" element={<ResponseCreateForm />} />
+            <Route path="/template/:templateId/response/create" element={<CreateResponseForm />} />
             <Route path="/template/:templateId/question/create" element={<AddQuestionForm />} />
             <Route path="/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
             <Route path="/profile" element={<Profile />}>
@@ -53,6 +54,7 @@ function App() {
             <Route path="/user/edit" element={<EditUserForm />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/response/:responseId" element={<Response />} />
+            <Route path="/response/:responseId/edit" element={<EditResponseForm />} />
         </Routes>
         <ToastContainer theme={theme} />
     </>
