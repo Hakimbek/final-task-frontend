@@ -6,7 +6,9 @@ interface DeleteResponseButtonProps {
     responseId: string;
 }
 
-export const DeleteResponseButton = ({ responseId = '' }: DeleteResponseButtonProps) => {
+export const DeleteResponseButton = ({
+    responseId = ''
+}: DeleteResponseButtonProps) => {
     const [deleteResponse, { isLoading }] = useDeleteResponseByIdMutation();
 
     const handleDelete = () => {

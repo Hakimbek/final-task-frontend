@@ -1,6 +1,6 @@
 import { OpenResponseButton } from "./button/OpenResponseButton.tsx";
 import { DeleteResponseButton } from "./button/DeleteResponseButton.tsx";
-import { Spinner } from "reactstrap";
+import { Spinner } from "../spinner/Spinner.tsx";
 import { useGetResponsesByUserIdQuery } from "../../app/api/responseApi.ts";
 import { useAppSelector } from "../../app/hook/hooks.ts";
 import { selectUserId } from "../../app/slice/authSlice.ts";
@@ -11,11 +11,7 @@ export const UserResponses = () => {
     const { data, isLoading } = useGetResponsesByUserIdQuery(userId);
     const { t } = useTranslation();
 
-    if (isLoading) return (
-        <div className="position-absolute d-flex align-items-center justify-content-center top-0 bottom-0 start-0 end-0">
-            <Spinner color="warning" type="grow"/>
-        </div>
-    );
+    if (isLoading) return <Spinner />;
 
     return (
         <div className="d-flex flex-column text-theme p-5 gap-4">
@@ -23,10 +19,13 @@ export const UserResponses = () => {
             <div className="d-flex flex-column gap-2">
                 {
                     data?.map(response => (
-                        <div key={response.id} className="p-3 rounded d-flex justify-content-between align-items-center template-theme">
-                            <div>{response.user.firstname} {response.user.lastname}</div>
+                        <div
+                            key={response.id}
+                            className="p-3 rounded d-flex justify-content-between align-items-center template-theme"
+                        >
+                            <div>{response.template.title}</div>
                             <div>
-                                <OpenResponseButton templateId={response.template.id || ''} userId={response.user.id} />
+                                <OpenResponseButton responseId={response.id} />
                                 <DeleteResponseButton responseId={response.id} />
                             </div>
                         </div>

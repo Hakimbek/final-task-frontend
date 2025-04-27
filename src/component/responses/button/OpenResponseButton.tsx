@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
 interface OpenResponseButtonProps {
-    templateId: string;
-    userId: string;
+    responseId: string;
 }
 
-export const OpenResponseButton = ({ templateId, userId }: OpenResponseButtonProps) => {
+export const OpenResponseButton = ({ responseId }: OpenResponseButtonProps) => {
     const navigate = useNavigate();
 
     return (
         <button
             className="button-theme"
-            onClick={() => navigate(`/user/${userId}/template/${templateId}`)}
+            onClick={() => navigate(`/response/${responseId}`)}
         >
             <i className="bi bi-eye"></i>
         </button>
