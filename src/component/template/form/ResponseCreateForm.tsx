@@ -16,7 +16,6 @@ export const ResponseCreateForm = () => {
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
     const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
     const { t } = useTranslation();
-    const isOwner = user?.id === template?.user?.id;
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -58,13 +57,11 @@ export const ResponseCreateForm = () => {
                             />
                         ))
                     }
-                    {(user?.isAdmin || (!isOwner && user)) && (
-                        <SubmitButton
-                            isDisabled={isResponseCreating}
-                            isSubmitting={isResponseCreating}
-                            text={t("submit")}
-                        />
-                    )}
+                    <SubmitButton
+                        isDisabled={isResponseCreating}
+                        isSubmitting={isResponseCreating}
+                        text={t("submit")}
+                    />
                 </div>
             </form>
         </div>
