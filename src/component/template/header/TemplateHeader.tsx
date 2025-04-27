@@ -8,7 +8,7 @@ interface TemplateHeaderProps {
     topic: string | undefined;
 }
 
-const TemplateHeader = ({ title, topic, description }: TemplateHeaderProps) => {
+export const TemplateHeader = ({ title, topic, description }: TemplateHeaderProps) => {
     const { t } = useTranslation();
 
     return (
@@ -25,5 +25,3 @@ const TemplateHeader = ({ title, topic, description }: TemplateHeaderProps) => {
         </>
     )
 }
-
-export default TemplateHeader;

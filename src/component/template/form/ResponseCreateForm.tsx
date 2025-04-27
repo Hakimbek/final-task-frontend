@@ -8,8 +8,9 @@ import { Spinner } from "../../spinner/Spinner.tsx";
 import { useGetTemplateByIdQuery } from "../../../app/api/templateApi.ts";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { TemplateHeader } from "../header/TemplateHeader.tsx";
 
-export const FillOutTemplateForm = () => {
+export const ResponseCreateForm = () => {
     const { user, isLoading } = useAuth();
     const { templateId = '' } = useParams();
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
@@ -36,9 +37,14 @@ export const FillOutTemplateForm = () => {
     if (isTemplateLoading || isLoading) return <Spinner />;
 
     return (
-        <div className="text-theme d-flex flex-column align-items-center p-4 gap-4">
+        <div className="text-theme d-flex flex-column align-items-center p-4 gap-4 mt-4">
             <form onSubmit={handleSubmit}>
                 <div style={{ width: 400 }} className="d-flex flex-column gap-4">
+                    <TemplateHeader
+                        title={template?.title}
+                        description={template?.description}
+                        topic={template?.topic}
+                    />
                     {
                         template?.questions?.map(({ id, title, description, isVisible, type }) => (
                             <Question

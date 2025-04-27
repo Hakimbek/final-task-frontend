@@ -3,6 +3,7 @@ import { EditTemplateButton } from "../button/EditTemplateButton.tsx";
 import { DeleteTemplateButton } from "../button/DeleteTemplateButton.tsx";
 import { useTranslation } from "react-i18next";
 import { ResponseButton } from "../button/ResponseButton.tsx";
+import { FillOutButton } from "../button/FillOutButton.tsx";
 
 interface TemplateSettingsProps {
     isOwner: boolean;
@@ -20,6 +21,7 @@ export const TemplateSettings = ({ isOwner, firstname, lastname, isAdmin }: Temp
                 {t("template")} | {firstname} {lastname}
             </div>
             <div className="d-flex gap-2">
+                {!isOwner && <FillOutButton />}
                 {
                     (isAdmin || isOwner) && (
                         <>

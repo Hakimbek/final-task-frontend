@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import TemplateHeader from "./header/TemplateHeader.tsx";
+import { TemplateHeader } from "./header/TemplateHeader.tsx";
 import { TemplateSettings } from "./settings/TemplateSettings.tsx";
 import { SortableQuestionList } from "../drag/SortableQuestionList.tsx";
 import { useGetTemplateByIdQuery } from "../../app/api/templateApi.ts";

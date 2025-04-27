@@ -19,6 +19,7 @@ import { EditUserForm } from "./component/profile/user/form/EditUserForm.tsx";
 import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
 import { UserResponses } from "./component/responses/UserResponses.tsx";
 import { Admin } from "./component/admin/Admin.tsx";
+import { ResponseCreateForm } from "./component/template/form/ResponseCreateForm.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -39,6 +40,7 @@ function App() {
             <Route path="/template/:templateId" element={<Template />} />
             <Route path="/template/:templateId/edit" element={<EditTemplateForm />} />
             <Route path="/template/:templateId/responses" element={<TemplateResponses />} />
+            <Route path="/template/:templateId/response/create" element={<ResponseCreateForm />} />
             <Route path="/template/:templateId/question/create" element={<AddQuestionForm />} />
             <Route path="/template/:templateId/question/:questionId/edit" element={<EditQuestionForm />} />
             <Route path="/profile" element={<Profile />}>

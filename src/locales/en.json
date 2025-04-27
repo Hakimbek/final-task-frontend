@@ -51,5 +51,6 @@
   "makeAdmin": "Make Admin",
   "makeUser": "Make User",
   "active": "Active",
-  "disabled": "Disabled"
+  "disabled": "Disabled",
+  "fillOut": "Fill Out"
 }
