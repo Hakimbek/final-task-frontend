@@ -6,7 +6,7 @@ import { useCreateResponseMutation } from "../../../app/api/responseApi.ts";
 import { useAuth } from "../../../app/hook/useAuth.ts";
 import { Spinner } from "../../spinner/Spinner.tsx";
 import { useGetTemplateByIdQuery } from "../../../app/api/templateApi.ts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TemplateHeader } from "../header/TemplateHeader.tsx";
 
@@ -16,6 +16,7 @@ export const ResponseCreateForm = () => {
     const [createResponse, { isLoading: isResponseCreating }] = useCreateResponseMutation();
     const { data: template, isLoading: isTemplateLoading } = useGetTemplateByIdQuery(templateId);
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,7 +30,10 @@ export const ResponseCreateForm = () => {
 
         createResponse({ userId: user?.id || '', templateId, answers })
             .unwrap()
-            .then(() =>  toast(t("success.thank")))
+            .then(() => {
+                toast(t("success.thank"));
+                navigate("/home");
+            })
             .catch(() => toast(t("error.common")));
     }
 
