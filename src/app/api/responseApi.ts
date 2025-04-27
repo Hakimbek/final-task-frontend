@@ -15,7 +15,7 @@ export const responseApi = baseApi.injectEndpoints({
         editResponseById: builder.mutation<MessageDto, EditResponseDto>({
             query: (response) => ({
                 url: `/response/${response.responseId}`,
-                method: "POST",
+                method: "PUT",
                 body: response
             }),
             invalidatesTags: ["Template"]
