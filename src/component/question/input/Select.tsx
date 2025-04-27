@@ -1,5 +1,5 @@
-import {useGetAnswerByResponseAndQuestionIdQuery} from "../../../app/api/answerApi.ts";
-import {useParams} from "react-router-dom";
+import { useGetAnswerByResponseAndQuestionIdQuery } from "../../../app/api/answerApi.ts";
+import { useParams } from "react-router-dom";
 
 interface SelectProps {
     questionId: string;
