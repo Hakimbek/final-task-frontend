@@ -2,9 +2,13 @@ import { CreateQuestionButton } from "../button/CreateQuestionButton.tsx";
 import { EditTemplateButton } from "../button/EditTemplateButton.tsx";
 import { DeleteTemplateButton } from "../button/DeleteTemplateButton.tsx";
 import { useTranslation } from "react-i18next";
-import { ResponseButton } from "../button/ResponseButton.tsx";
+import { ResponsesButton } from "../button/ResponsesButton.tsx";
 import { FillOutButton } from "../button/FillOutButton.tsx";
 import { useAuth } from "../../../app/hook/useAuth.ts";
+import { useGetResponsesByUserAndTemplateIdQuery } from "../../../app/api/responseApi.ts";
+import { useParams } from "react-router-dom";
+import { ResponseButton } from "../button/ResponseButton.tsx";
+import { Spinner } from "reactstrap";
 
 interface TemplateSettingsProps {
     isOwner: boolean;
@@ -12,7 +16,9 @@ interface TemplateSettingsProps {
 
 export const TemplateSettings = ({ isOwner }: TemplateSettingsProps) => {
     const { t } = useTranslation();
-    const { user } = useAuth();
+    const { user, isLoading: isUserLoading } = useAuth();
+    const { templateId = '' } = useParams();
+    const { data, isLoading } = useGetResponsesByUserAndTemplateIdQuery({ userId: user?.id || '', templateId });
 
     return (
         <div className="d-flex w-100 justify-content-between align-items-center">
@@ -20,16 +26,25 @@ export const TemplateSettings = ({ isOwner }: TemplateSettingsProps) => {
                 {t("template")} | {user?.firstname} {user?.lastname}
             </div>
             <div className="d-flex gap-2">
-                {!isOwner && user && <FillOutButton />}
                 {
-                    (user?.isAdmin || isOwner) && (
-                        <>
-                            <ResponseButton />
-                            <CreateQuestionButton />
-                            <EditTemplateButton />
-                            <DeleteTemplateButton />
-                        </>
-                    )
+                    isUserLoading || isLoading
+                        ? <Spinner color="warning" size="sm" type="grow" />
+                        : (
+                            <>
+                                {!isOwner && user && data && <ResponseButton responseId={data.id} />}
+                                {!isOwner && user && !data && <FillOutButton />}
+                                {
+                                    (user?.isAdmin || isOwner) && (
+                                        <>
+                                            <ResponsesButton />
+                                            <CreateQuestionButton />
+                                            <EditTemplateButton />
+                                            <DeleteTemplateButton />
+                                        </>
+                                    )
+                                }
+                            </>
+                        )
                 }
             </div>
         </div>

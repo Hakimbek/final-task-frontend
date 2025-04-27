@@ -1,6 +1,7 @@
 import { baseApi } from "./baseApi.ts";
-import { TemplateDto } from "./templateApi.ts";
-import { UserDto } from "./userApi.ts";
+import { UserDto } from "../dto/User.dto.ts";
+import { TemplateDto } from "../dto/Template.dto.ts";
+import { MessageDto } from "../dto/Message.dto.ts";
 
 interface ResponseDto {
     id: string;
@@ -11,7 +12,7 @@ interface ResponseDto {
 export const responseApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         createResponse: builder.mutation<
-            { message: string },
+            MessageDto,
             {
                 userId: string;
                 templateId: string;
@@ -22,26 +23,30 @@ export const responseApi = baseApi.injectEndpoints({
             }
         >({
             query: (response) => ({
-                url: '/response',
-                method: 'POST',
+                url: "/response",
+                method: "POST",
                 body: response
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         }),
         getResponsesByTemplateId: builder.query<ResponseDto[], string>({
             query: (templateId) => `/response/template/${templateId}`,
-            providesTags: ['Template']
+            providesTags: ["Template"]
         }),
         getResponsesByUserId: builder.query<ResponseDto[], string>({
             query: (userId) => `/response/user/${userId}`,
-            providesTags: ['Template']
+            providesTags: ["Template"]
         }),
-        deleteResponseById: builder.mutation<{ message: string }, string>({
+        getResponsesByUserAndTemplateId: builder.query<ResponseDto, { userId: string; templateId: string }>({
+            query: ({ userId, templateId }) => `/response/user/${userId}/template/${templateId}`,
+            providesTags: ["Template"]
+        }),
+        deleteResponseById: builder.mutation<MessageDto, string>({
             query: (responseId) => ({
                 url: `/response/${responseId}`,
-                method: 'DELETE'
+                method: "DELETE"
             }),
-            invalidatesTags: ['Template']
+            invalidatesTags: ["Template"]
         })
     })
 })
@@ -50,5 +55,6 @@ export const {
     useCreateResponseMutation,
     useGetResponsesByTemplateIdQuery,
     useDeleteResponseByIdMutation,
-    useGetResponsesByUserIdQuery
+    useGetResponsesByUserIdQuery,
+    useGetResponsesByUserAndTemplateIdQuery,
 } = responseApi;

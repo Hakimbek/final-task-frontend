@@ -1,13 +1,10 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-interface ResponseButtonProps {
-    responseId: string;
-}
-
-export const ResponseButton = ({ responseId }: ResponseButtonProps) => {
+export const ResponsesButton = () => {
     const navigate = useNavigate();
+    const { templateId = '' } = useParams();
     const { t } = useTranslation();
 
     return (
@@ -15,9 +12,9 @@ export const ResponseButton = ({ responseId }: ResponseButtonProps) => {
             type="button"
             color="warning"
             className="rounded-pill"
-            onClick={() => navigate(`/response/${responseId}`)}
+            onClick={() => navigate(`/template/${templateId}/responses`)}
         >
-            {t("response")}
+            {t("responses")}
         </Button>
     )
 }
