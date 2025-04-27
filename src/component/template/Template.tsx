@@ -16,12 +16,7 @@ export const Template = () => {
 
     return (
         <div className="text-theme d-flex flex-column align-items-center p-4 gap-4">
-           <TemplateSettings
-               isOwner={isOwner}
-               firstname={template?.user?.firstname}
-               lastname={template?.user?.lastname}
-               isAdmin={user?.isAdmin}
-           />
+           <TemplateSettings isOwner={isOwner} />
             <div style={{ width: 400 }} className="d-flex flex-column gap-4">
                 <TemplateHeader
                     title={template?.title}

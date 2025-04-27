@@ -14,7 +14,7 @@ export const UserTemplates = () => {
                 <div
                     key={id}
                     className="d-flex cursor-pointer"
-                    onClick={() => navigate(`/user/${user.id}/template/${id}`)}
+                    onClick={() => navigate(`/template/${id}`)}
                 >
                     <div className="p-4 bg-warning rounded-start d-flex align-items-center">
                         <i className="bi bi-journal-text"></i>

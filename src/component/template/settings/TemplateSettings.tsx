@@ -4,26 +4,25 @@ import { DeleteTemplateButton } from "../button/DeleteTemplateButton.tsx";
 import { useTranslation } from "react-i18next";
 import { ResponseButton } from "../button/ResponseButton.tsx";
 import { FillOutButton } from "../button/FillOutButton.tsx";
+import { useAuth } from "../../../app/hook/useAuth.ts";
 
 interface TemplateSettingsProps {
     isOwner: boolean;
-    firstname: string | undefined;
-    lastname: string | undefined;
-    isAdmin: boolean | undefined;
 }
 
-export const TemplateSettings = ({ isOwner, firstname, lastname, isAdmin }: TemplateSettingsProps) => {
+export const TemplateSettings = ({ isOwner }: TemplateSettingsProps) => {
     const { t } = useTranslation();
+    const { user } = useAuth();
 
     return (
         <div className="d-flex w-100 justify-content-between align-items-center">
             <div className="fs-3">
-                {t("template")} | {firstname} {lastname}
+                {t("template")} | {user?.firstname} {user?.lastname}
             </div>
             <div className="d-flex gap-2">
-                {!isOwner && <FillOutButton />}
+                {!isOwner && user && <FillOutButton />}
                 {
-                    (isAdmin || isOwner) && (
+                    (user?.isAdmin || isOwner) && (
                         <>
                             <ResponseButton />
                             <CreateQuestionButton />
