@@ -16,7 +16,7 @@ export const Select = ({ questionId, options }: SelectProps) => {
                 options.map((option) => (
                     <label key={option} className="d-flex gap-2">
                         <input
-                            checked={data?.value === option}
+                            defaultChecked={data?.value === option}
                             type="radio"
                             name={questionId}
                             value={option}
