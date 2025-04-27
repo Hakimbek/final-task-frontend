@@ -2,11 +2,17 @@ import { baseApi } from "./baseApi.ts";
 import { UserDto } from "../dto/User.dto.ts";
 import { TemplateDto } from "../dto/Template.dto.ts";
 import { MessageDto } from "../dto/Message.dto.ts";
+import { QuestionDto } from "../dto/Question.dto.ts";
 
 interface ResponseDto {
     id: string;
     user: UserDto;
     template: TemplateDto;
+    answers: {
+        id: string;
+        value: string;
+        question: QuestionDto;
+    }[]
 }
 
 export const responseApi = baseApi.injectEndpoints({
@@ -41,6 +47,10 @@ export const responseApi = baseApi.injectEndpoints({
             query: ({ userId, templateId }) => `/response/user/${userId}/template/${templateId}`,
             providesTags: ["Template"]
         }),
+        getResponsesById: builder.query<ResponseDto, string>({
+            query: (responseId) => `/response/response/${responseId}`,
+            providesTags: ["Template"]
+        }),
         deleteResponseById: builder.mutation<MessageDto, string>({
             query: (responseId) => ({
                 url: `/response/${responseId}`,
@@ -57,4 +67,5 @@ export const {
     useDeleteResponseByIdMutation,
     useGetResponsesByUserIdQuery,
     useGetResponsesByUserAndTemplateIdQuery,
+    useGetResponsesByIdQuery
 } = responseApi;

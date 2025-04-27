@@ -20,6 +20,7 @@ import { TemplateResponses } from "./component/responses/TemplateResponses.tsx";
 import { UserResponses } from "./component/responses/UserResponses.tsx";
 import { Admin } from "./component/admin/Admin.tsx";
 import { ResponseCreateForm } from "./component/template/form/ResponseCreateForm.tsx";
+import { Response } from "./component/response/Response.tsx";
 
 function App() {
   const token = localStorage.getItem('token');
@@ -51,6 +52,7 @@ function App() {
             </Route>
             <Route path="/user/edit" element={<EditUserForm />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/response/:responseId" element={<Response />} />
         </Routes>
         <ToastContainer theme={theme} />
     </>
