@@ -10,6 +10,7 @@ import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { useFormik } from "formik";
 import { questionValidation } from "./validation.ts";
 import { Spinner } from "../../spinner/Spinner.tsx";
+import {Options} from "../../inputs/Options.tsx";
 
 export const EditQuestionForm = () => {
     const { questionId = '', templateId = '' } = useParams();
@@ -35,14 +36,16 @@ export const EditQuestionForm = () => {
             title: data?.title || '',
             description: data?.description || '',
             type: data?.type || 'Text',
-            isVisible: data?.isVisible || true
+            isVisible: data?.isVisible || true,
+            options: data?.options || [],
         },
         validationSchema: questionValidation,
         onSubmit: (
-            { title, description, type, isVisible },
+            { title, description, type, isVisible, options },
             { setSubmitting }
         ) => {
-            editQuestionById({ id: questionId, title, description, isVisible, type })
+            if (type !== "Select") options = [];
+            editQuestionById({ id: questionId, title, description, isVisible, type, options })
                 .unwrap()
                 .then(() => {
                     navigate(`/template/${templateId}`)
@@ -86,6 +89,7 @@ export const EditQuestionForm = () => {
                 {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
             </div>
             <Select value={values.type} fieldName="type" setValue={setFieldValue} data={questionTypes} label={t("type")} />
+            {values.type === "Select" && <Options options={values.options} setOptions={setFieldValue} />}
             <Visibility isVisible={values.isVisible} setIsVisible={setFieldValue} />
             <SubmitButton
                 isDisabled={isSubmitting || !(isValid && dirty)}

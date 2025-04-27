@@ -5,6 +5,7 @@ export interface QuestionDto {
     isVisible: boolean;
     type: string;
     order: number;
+    options: string[];
 }
 
 export interface CreateQuestionDto {
@@ -13,6 +14,7 @@ export interface CreateQuestionDto {
     isVisible: boolean;
     type: string;
     templateId: string;
+    options: string[];
 }
 
 export interface EditQuestionDto {
@@ -21,6 +23,7 @@ export interface EditQuestionDto {
     description: string;
     isVisible: boolean;
     type: string;
+    options: string[];
 }
 
 export interface ReorderDto {

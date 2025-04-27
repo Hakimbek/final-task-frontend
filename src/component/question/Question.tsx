@@ -5,6 +5,7 @@ import { QuestionSettings } from "./settings/QuestionSettings.tsx";
 import { Text } from "./input/Text.tsx";
 import { Textarea } from "./input/Textarea.tsx";
 import { Number } from "./input/Number.tsx";
+import { Select } from "./input/Select.tsx";
 import "./Question.css";
 
 interface QuestionProps {
@@ -14,6 +15,7 @@ interface QuestionProps {
     isVisible: boolean;
     type: string;
     templateUserId: string | undefined;
+    options: string[];
 }
 
 export const Question = ({
@@ -23,6 +25,7 @@ export const Question = ({
     isVisible,
     type,
     templateUserId,
+    options,
 }: QuestionProps) => {
     const { t } = useTranslation();
     const { user } = useAuth();
@@ -39,6 +42,7 @@ export const Question = ({
                     {type === "Text" && <Text questionId={id} />}
                     {type === "Textarea" && <Textarea questionId={id} />}
                     {type === "Number" && <Number questionId={id} />}
+                    {type === "Select" && <Select questionId={id} options={options} />}
                 </div>
                 {(user?.isAdmin || isOwner) && <QuestionSettings id={id} />}
             </InfoWrapper>

@@ -49,7 +49,7 @@ export const CreateResponseForm = () => {
                         topic={template?.topic}
                     />
                     {
-                        template?.questions?.map(({ id, title, description, isVisible, type }) => (
+                        template?.questions?.map(({ id, title, description, isVisible, type, options }) => (
                             <Question
                                 key={id}
                                 id={id || ''}
@@ -58,6 +58,7 @@ export const CreateResponseForm = () => {
                                 isVisible={isVisible}
                                 type={type}
                                 templateUserId={template?.user?.id}
+                                options={options}
                             />
                         ))
                     }

@@ -46,7 +46,7 @@ export const EditResponseForm = () => {
                         topic={data?.template?.topic}
                     />
                     {
-                        data?.template?.questions?.map(({ id, title, description, isVisible, type }) => (
+                        data?.template?.questions?.map(({ id, title, description, isVisible, type, options }) => (
                             <Question
                                 key={id}
                                 id={id || ''}
@@ -55,6 +55,7 @@ export const EditResponseForm = () => {
                                 isVisible={isVisible}
                                 type={type}
                                 templateUserId={data?.template?.user?.id}
+                                options={options}
                             />
                         ))
                     }

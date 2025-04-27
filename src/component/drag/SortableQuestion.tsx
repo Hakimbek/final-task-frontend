@@ -46,6 +46,7 @@ export const SortableQuestion = ({
                 description={question.description}
                 isVisible={question.isVisible}
                 type={question.type}
+                options={question.options}
                 templateUserId={templateUserId}
             />
         </div>

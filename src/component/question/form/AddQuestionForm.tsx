@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { SubmitButton } from "../../button/SubmitButton.tsx";
 import { questionValidation } from "./validation.ts";
 import { questionTypes } from "./questionTypes.ts";
+import { Options } from "../../inputs/Options.tsx";
 
 export const AddQuestionForm = () => {
     const { t } = useTranslation();
@@ -27,13 +28,14 @@ export const AddQuestionForm = () => {
         dirty,
         isSubmitting
     } = useFormik({
-        initialValues: { title: '', description: '', type: 'Text', isVisible: true },
+        initialValues: { title: '', description: '', type: 'Text', isVisible: true, options: [] },
         validationSchema: questionValidation,
         onSubmit: (
-            { title, description, type, isVisible },
+            { title, description, type, isVisible, options },
             { setSubmitting }
         ) => {
-            createQuestion({ title, description, type, isVisible, templateId: templateId || '' })
+            if (type !== "Select") options = [];
+            createQuestion({ title, description, type, isVisible, templateId: templateId || '', options })
                 .unwrap()
                 .then(() => navigate(`/template/${templateId}`))
                 .catch(result => toast(result.data.message))
@@ -73,6 +75,7 @@ export const AddQuestionForm = () => {
                 {touched.description && errors.description && <div className="text-danger">{t("error.description")}</div>}
             </div>
             <Select value={values.type} fieldName="type" setValue={setFieldValue} data={questionTypes} label={t("type")} />
+            {values.type === "Select" && <Options options={values.options} setOptions={setFieldValue} />}
             <Visibility isVisible={values.isVisible} setIsVisible={setFieldValue} />
             <SubmitButton
                 isDisabled={isSubmitting || !(isValid && dirty)}
