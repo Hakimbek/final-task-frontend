@@ -29,6 +29,7 @@ export const Template = () => {
                     topic={template?.topic}
                 />
                 <SortableQuestionList
+                    key={template?.questions.length}
                     initialQuestions={template?.questions || []}
                     templateUserId={template?.user?.id || ''}
                 />
