@@ -1,5 +1,5 @@
 import { Input } from "reactstrap";
-import { UserDto } from "../../../app/api/userApi.ts";
+import { UserDto } from "../../../app/dto/User.dto.ts";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Status } from "../status/Status.tsx";

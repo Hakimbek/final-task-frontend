@@ -1,4 +1,4 @@
-import { TemplateDto } from "../api/templateApi.ts";
+import { TemplateDto } from "./Template.dto.ts";
 
 export interface UserDto {
     id: string;
