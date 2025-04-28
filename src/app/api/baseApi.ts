@@ -2,7 +2,7 @@ import { BaseQueryFn, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/r
 import { logout } from "../slice/authSlice.ts";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:3000/",
+    baseUrl: "https://final-task-backend-ookm.onrender.com",
     prepareHeaders: (headers) => {
         headers.set("Authorization", `Bearer ${localStorage.getItem("token")}`);
         headers.set("Content-Type", "application/json");
